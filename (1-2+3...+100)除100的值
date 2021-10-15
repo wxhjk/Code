@@ -1,0 +1,8 @@
+double i=0;
+         double sum=0;
+         int b=1;
+         for(i=1.0;i<=100;i++){
+             sum+=(i/100)*b;
+             b*=-1;
+         }
+        System.out.println(sum);
