@@ -1,0 +1,20 @@
+public static void main(String[] args) {
+        int a=2;
+        int b=1;
+        int c=3;
+        int max=a;
+        int min=a;
+        if(b>a){
+            max=b;
+        }
+        else{
+            min=b;
+        }
+        if(c>b){
+            max=c;
+        }
+        else{
+            min=c;
+        }
+        System.out.println(max);
+        System.out.println(min);
