@@ -1,0 +1,13 @@
+public static void main(String[] args) {
+        String b="abc";
+        Scanner sz=new Scanner(System.in);
+        int i=3;
+        while(i>0){
+            String a=sz.nextLine();
+            if(a.equals(b)){
+                System.out.println("密码正确");
+                break;
+            }
+            System.out.println("重新输入");
+            i--;
+        }
