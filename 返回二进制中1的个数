@@ -1,0 +1,14 @@
+public static void main(String[] args) {
+        Scanner sz=new Scanner(System.in);
+        int n=sz.nextInt();
+        int a=fun(n);
+        System.out.println(a);
+    }
+    public static int fun(int n){
+        int i=0;
+        while(n!=0){
+            n=n&(n-1);
+            i++;
+        }
+        return i;
+    }
