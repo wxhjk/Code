@@ -1,0 +1,24 @@
+public class text {
+    public static void main(String[] args) {
+        Scanner sz= new Scanner(System.in);
+        int N=sz.nextInt();
+        int i=1;
+        while(fib(i)<N){
+            i++;
+        }
+        int a=fib(i)-N;
+        int b=N-fib(i-1);
+        int min=Math.min(a, b);
+        System.out.println(min);
+    }
+    public static int fib(int n){
+        if(n>2){
+            return fib(n-2)+fib(n-1);
+        }
+        else if(n==2){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
