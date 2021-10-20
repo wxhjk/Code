@@ -1,9 +1,7 @@
-double i=0;
-         double sum=0;
-         int b=1;
-         for(i=1.0;i<=100;i++){
-             sum+=(i/100)*b;
-             b*=-1;
-         }
+  double sum=0;
+     int flag=1;
+        for (int i = 1; i <100 ; i++) {
+            sum+=1.0/i*flag;
+            flag=flag*-1;
+        }
         System.out.println(sum);
-        
