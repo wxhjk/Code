@@ -1,13 +1,23 @@
-public static void main(String[] args) {
-        String b="abc";
+import java.util.*;
+public class text {
+    public static void login(){
         Scanner sz=new Scanner(System.in);
         int i=3;
-        while(i>0){
+        while(i!=0){
+            System.out.println("请输入密码");
             String a=sz.nextLine();
-            if(a.equals(b)){
-                System.out.println("密码正确");
+            if(a.equals("123456")){
+                System.out.println("登录成功");
                 break;
             }
-            System.out.println("重新输入");
-            i--;
+            else{
+                i--;
+                System.out.println("密码错误，你还有"+i+"次机会");
+            }
+           
         }
+    }
+    public static void main(String[] args) {
+        login();
+    }
+}
