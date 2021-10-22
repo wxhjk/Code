@@ -1,0 +1,15 @@
+import java.util.*;
+public class text {
+    public static void main(String[] args) {
+     Scanner sz=new Scanner(System.in);
+     int n=sz.nextInt();
+     System.out.println(hannota(n));
+    }
+    public static int hannota(int n){
+      if(n==1){
+          return 1;
+      }
+      else{
+          return hannota(n-1)*2+1;
+      }
+    }
