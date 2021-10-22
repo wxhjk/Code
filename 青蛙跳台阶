@@ -1,0 +1,16 @@
+import java.util.*;
+public class text {
+    public static void main(String[] args) {
+     Scanner sz=new Scanner(System.in);
+     int n=sz.nextInt();
+     System.out.println(flog(n));
+    }
+    public static int flog(int n){
+       if(n==1||n==2){
+           return n;
+        }
+        else{
+            return flog(n-1)+flog(n-2);
+        }
+    }
+}
