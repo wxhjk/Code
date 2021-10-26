@@ -9,7 +9,7 @@ public class text {
        if(n==1||n==2){
            return n;
         }
-        else{
+        else{ 
             return flog(n-1)+flog(n-2);
         }
     }
