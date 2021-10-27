@@ -1,0 +1,26 @@
+public class text {
+    public static void main(String[] args) {
+        //二维数组的三种定义方式
+//      int[][] arr={{1,2,3},{4,5,6}};
+//      int[][] brr=new int[][]{{2,3,4},{5,6,7}};
+//      int[][] crr=new int[2][3];
+        //二维数组的不规则定义
+      int[][] arr=new int[2][0];
+      arr[0]=new int[3];
+      arr[1]=new int[2];
+        //二维数组的三种打印方式
+//       1、 for (int i = 0; i < arr.length; i++) {
+//            for (int j = 0; j < arr[0].length; j++) {
+//                System.out.print(arr[i][j]+" ");
+//            }
+//            System.out.println();
+//        }
+//       2、 for (int[] ret:arr) {
+//            for(int x:ret){
+//                System.out.print(x+" ");
+//            }
+//            System.out.println();
+//        }
+//       3、System.out.println(Arrays.deepToString(arr));
+    }
+}
