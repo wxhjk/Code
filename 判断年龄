@@ -1,0 +1,14 @@
+ Scanner sc=new Scanner(System.in);
+      int a=sc.nextInt();
+      if(a<=18){
+          System.out.println("少年");
+      }
+      else if(a<=28){
+          System.out.println("青年");
+      }
+      else if(a<=55){
+          System.out.println("中年");
+      }
+      else{
+          System.out.println("老年");
+      }

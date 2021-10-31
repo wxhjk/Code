@@ -1,0 +1,16 @@
+import java.util.*;
+public class text {
+    public static void main(String[] args) {
+     Scanner sz=new Scanner(System.in);
+     int n=sz.nextInt();
+        System.out.println(sumAdd(n));
+    }
+    public static int sumAdd(int n){
+     if(n==1){
+         return 1;
+     }
+     else{
+         return n+sumAdd(n-1);
+     }
+    }
+}

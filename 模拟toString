@@ -1,0 +1,31 @@
+public class text {
+   public static void main(String[] args) {
+     int[] arr={1,2,3,4,5};
+     String  str =my_ToString(arr);
+     System.out.println(str);
+   }
+//  public static void my_ToString(int[] arr){
+//    System.out.print("[");
+//    for (int i = 0; i < arr.length; i++) {
+//        System.out.print(arr[i]);
+//        if(i!=arr.length-1){
+//          System.out.print(",");
+//        }
+//    }
+//    System.out.println("]");
+//  }
+  public static String my_ToString(int []arr){
+     if(arr==null){
+       return null;
+     }
+     String str="[";
+    for (int i = 0; i <arr.length ; i++) {
+      str+=arr[i];
+      if(i!=arr.length-1){
+        str+=",";
+      }
+    }
+    str+="]";
+    return str;
+  }
+}

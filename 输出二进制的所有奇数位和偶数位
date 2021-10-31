@@ -1,0 +1,14 @@
+import java.util.*;
+public class text {
+    public static void main(String[] args) {
+      Scanner sz=new Scanner(System.in);
+      int a=sz.nextInt();
+        for (int i =31; i >0 ; i-=2) {
+            System.out.print((a>>i&1)+" ");
+        }
+        System.out.println();
+        for (int i =30; i >=0 ; i-=2) {
+            System.out.print((a>>i&1)+" ");
+        }
+    }
+}
