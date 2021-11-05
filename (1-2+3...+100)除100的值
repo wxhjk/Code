@@ -4,4 +4,4 @@
             sum+=1.0/i*flag;
             flag=flag*-1;
         }
-        System.out.println(sum);  
+        System.out.println(sum);    
