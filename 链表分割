@@ -1,0 +1,40 @@
+public class Partition {
+    public ListNode partition(ListNode pHead, int x) {
+        ListNode bs=null;
+        ListNode be=null;
+        ListNode as=null;
+        ListNode ae=null;
+        ListNode tmp=pHead;
+        while(tmp!=null){
+            if(tmp.val<x){
+                if(bs==null){
+                    bs=tmp;
+                    be=tmp;
+                }
+                else{
+                    be.next=tmp;
+                    be=be.next;
+                }
+            }
+            else{
+                if(as==null){
+                    as=tmp;
+                    ae=tmp;
+                }
+                else{
+                    ae.next=tmp;
+                    ae=ae.next;
+                }
+            }
+            tmp=tmp.next;
+        }
+        if(bs==null){
+            return as;
+        }
+        be.next=as;
+        if(ae!=null){
+            ae.next=null;
+        }
+        return bs;
+    }
+}
