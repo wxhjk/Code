@@ -1,0 +1,21 @@
+public class Text {
+    public static void main(String[] args) {
+        int[] arr={1,2,3,2,1,4,6,6,5,4};
+        TwoNum(arr);
+    }
+    public static void TwoNum(int[] arr){
+        int eor=0;
+        for (int cur:arr) {
+            eor^=cur;
+        }
+        System.out.println(eor);
+        int rightOne=eor&(~eor+1);
+        int eor1=eor;
+        for (int cur:arr) {
+            if((rightOne&cur)==0){
+                eor1^=cur;
+            }
+        }
+        System.out.println(eor1+" "+(eor1^eor));
+    }
+}
