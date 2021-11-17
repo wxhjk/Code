@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
        ListNode ans=null;
@@ -27,4 +28,35 @@ class Solution {
         cur.next=A==null?B:A;
         return newhead.next;
     }
+=======
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+       ListNode ans=null;
+       for(int i=0;i<lists.length;i++){
+           ans=mergers(ans,lists[i]);
+       }
+       return ans;
+}
+    public ListNode mergers(ListNode a,ListNode b){
+         if(a==null||b==null){
+            return (a==null)?b:a;
+        }
+        ListNode newhead=new ListNode(-1);
+        ListNode cur=newhead;
+        ListNode A=a;
+        ListNode B=b;
+        while(A!=null&&B!=null){
+            if(A.val<=B.val){
+                cur.next=A;
+                A=A.next;
+            }else{
+                cur.next=B;
+                B=B.next;
+            }
+            cur=cur.next;
+        }
+        cur.next=A==null?B:A;
+        return newhead.next;
+    }
+>>>>>>> a6b40fe4da52147722d87427900dda54f98b6f80
 }

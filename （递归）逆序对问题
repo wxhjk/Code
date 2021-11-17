@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 public class Text2 {
     public static int process(int[]arr,int L,int R){
         if(L==R){
@@ -33,3 +34,40 @@ public class Text2 {
         System.out.println(Arrays.toString(arr));
     }
 }
+=======
+public class Text2 {
+    public static int process(int[]arr,int L,int R){
+        if(L==R){
+            return 0;
+        }
+        int mid=L+((R-L)>>1);
+        return process(arr,L,mid)+ process(arr,mid+1,R)+ merge(arr,L,mid,R);
+    }
+    public static int merge(int[] arr,int L,int M,int R){
+        int[] help=new int[R-L+1];
+        int p1=L;
+        int p2=M+1;
+        int i=0;
+        int cur=0;
+        while(p1<=M&&p2<=R){
+            cur+=arr[p1]>arr[p2]? (M - p1 + 1) :0;
+            help[i++]=arr[p1]>=arr[p2]?arr[p2++]:arr[p1++];
+        }
+        while(p1<=M){
+            help[i++]=arr[p1++];
+        }
+        while(p2<=R){
+            help[i++]=arr[p2++];
+        }
+        for(i=0;i<help.length;i++){
+            arr[L+i]=help[i];
+        }
+        return cur;
+    }
+    public static void main(String[] args) {
+        int[] arr={3,2,4,5,0};
+        System.out.println(process(arr,0, arr.length-1));
+        System.out.println(Arrays.toString(arr));
+    }
+}
+>>>>>>> a6b40fe4da52147722d87427900dda54f98b6f80

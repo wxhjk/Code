@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 lass Solution {
     public boolean detectCapitalUse(String word) {
         if(word.length()>=2&&Character.isLowerCase(word.charAt(0))&&Character.isUpperCase(word.charAt(1))){
@@ -10,4 +11,18 @@ lass Solution {
             }
         return true;
     }
+=======
+lass Solution {
+    public boolean detectCapitalUse(String word) {
+        if(word.length()>=2&&Character.isLowerCase(word.charAt(0))&&Character.isUpperCase(word.charAt(1))){
+            return false;
+        }
+            for(int i=1;i<word.length()-1;i++){
+                if(Character.isLowerCase(word.charAt(i))==Character.isUpperCase(word.charAt(i+1))){
+                    return false;
+                }
+            }
+        return true;
+    }
+>>>>>>> a6b40fe4da52147722d87427900dda54f98b6f80
 }

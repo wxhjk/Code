@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 public class Text {
     public static int process(int[]arr,int L,int R){
         if (L==R){
@@ -13,3 +14,20 @@ public class Text {
         System.out.println(process(arr,0,arr.length-1));
     }
 }
+=======
+public class Text {
+    public static int process(int[]arr,int L,int R){
+        if (L==R){
+            return arr[L];
+        }
+        int mid=L+((R-L)>>1);
+        int LeftMax=process(arr,L,mid);
+        int RightMax=process(arr,mid+1,R);
+        return Math.max(LeftMax,RightMax);
+    }
+    public static void main(String[] args) {
+        int[] arr={6,5,4,3,2,7,8,9};
+        System.out.println(process(arr,0,arr.length-1));
+    }
+}
+>>>>>>> a6b40fe4da52147722d87427900dda54f98b6f80

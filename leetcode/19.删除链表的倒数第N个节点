@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode newhead=new ListNode(0);
@@ -15,4 +16,23 @@ class Solution {
         slow.next=slow.next.next;
         return newhead.next;
     }
+=======
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode newhead=new ListNode(0);
+        ListNode fast=newhead;
+        ListNode slow=newhead;
+        newhead.next=head;
+        while(n!=0){
+            fast=fast.next;
+            n--;
+        }
+        while(fast!=null&&fast.next!=null){
+            fast=fast.next;
+            slow=slow.next;
+        }
+        slow.next=slow.next.next;
+        return newhead.next;
+    }
+>>>>>>> a6b40fe4da52147722d87427900dda54f98b6f80
 }

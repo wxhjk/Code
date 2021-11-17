@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class Solution {
     public ListNode swapPairs(ListNode head) {
         // if(head==null){
@@ -24,4 +25,32 @@ class Solution {
         head.next=swapPairs(cur);
         return newhead;
     }
+=======
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        // if(head==null){
+        //     return null;
+        // }
+        // ListNode newhead=new ListNode(-1);
+        // ListNode tmp=newhead;
+        // newhead.next=head;
+        // while(tmp.next!=null&&tmp.next.next!=null){
+        //     ListNode start=tmp.next;
+        //     ListNode end=tmp.next.next;
+        //     start.next=end.next;
+        //     tmp.next=end;
+        //     end.next=start;
+        //     tmp=start;
+        // }
+        // return newhead.next;
+        if(head==null||head.next==null){
+            return head; 
+        }
+        ListNode cur=head.next.next;
+        ListNode newhead=head.next;
+        newhead.next=head;
+        head.next=swapPairs(cur);
+        return newhead;
+    }
+>>>>>>> a6b40fe4da52147722d87427900dda54f98b6f80
 }
