@@ -1,0 +1,32 @@
+public class Text {
+//   public static void divide(int[]arr,int num){
+//       int L=0;
+//       for(int i=0;i<arr.length;i++){
+//           if(arr[i]<=num){
+//               Swap(arr,L,i);
+//               L++;
+//           }
+//       }
+//   }
+   public static void NetherlandsFlag(int[] arr,int num){
+       int L=0;
+       int R=arr.length-1;
+       for(int i=0;i<=R;i++){
+           if(arr[i]<num){
+               Swap(arr,L++,i);
+           }else if(arr[i]>num){
+               Swap(arr,i--,R--);
+           }
+       }
+   }
+   public static void Swap(int[] arr,int l,int i){
+       int tmp=arr[l];
+       arr[l]=arr[i];
+       arr[i]=tmp;
+   }
+    public static void main(String[] args) {
+        int[] arr={3,5,6,3,4,5,2,6,2,0};
+        NetherlandsFlag(arr,5);
+        System.out.println(Arrays.toString(arr));
+    }
+}
