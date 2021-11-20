@@ -1,0 +1,17 @@
+class Solution {
+    public int findLHS(int[] nums) {
+        int Max=0;
+        int end=0;
+        int begin=0;
+        Arrays.sort(nums);
+        for(end=0;end<nums.length;end++){
+            while(nums[end]-nums[begin]>1){
+                begin++;
+            }
+            if(nums[end]-nums[begin]==1){
+                Max=Math.max(Max,end-begin+1);
+            }
+        }
+        return Max;
+    }
+}
