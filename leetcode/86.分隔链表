@@ -1,0 +1,58 @@
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        // if(head==null){
+        //     return null;
+        // }
+        // ListNode sH=null;
+        // ListNode sT=null;
+        // ListNode mH=null;
+        // ListNode mT=null;
+        // ListNode cur=head;
+        // while(cur!=null){
+        //     head=cur.next;
+        //     cur.next=null;
+        //     if(cur.val<x){
+        //         if(sH==null){
+        //             sH=cur;
+        //             sT=cur;
+        //         }else{
+        //             sT.next=cur;
+        //             sT=cur;
+        //         }
+        //     }else{
+        //         if(mH==null){
+        //             mH=cur;
+        //             mT=cur;
+        //         }else{
+        //             mT.next=cur;
+        //             mT=cur;
+        //         }
+        //     }
+        //     cur=head;
+        // }
+        // if(sH!=null){
+        //     sT.next=mH;
+        // }
+        // return sH==null?mH:sH;
+        if(head==null){
+            return null;
+        }
+        ListNode small=new ListNode(0);
+        ListNode large=new ListNode(0);
+        ListNode smallHead=small;
+        ListNode largeHead=large;
+        while(head!=null){
+            if(head.val<x){
+                small.next=head;
+                small=small.next;
+            }else{
+                large.next=head;
+                large=large.next;
+            }
+            head=head.next;
+        }
+        small.next=largeHead.next;
+        large.next=null;
+        return smallHead.next;
+    }
+}
