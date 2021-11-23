@@ -1,0 +1,165 @@
+public class HashTable {
+    public static void menu(){
+        System.out.println("==========================");
+        System.out.println("1.增加");
+        System.out.println("2.查找");
+        System.out.println("3.遍历");
+        System.out.println("4.删除");
+        System.out.println("5.退出系统");
+        System.out.println("==========================");
+
+    }
+    public static void main(String[] args) {
+        Scanner scanner=new Scanner(System.in);
+        Hash hash=new Hash(7);
+        while(true){
+            menu();
+            System.out.println("请输入选择");
+            int key=scanner.nextInt();
+            switch (key){
+                case 1:
+                    System.out.println("请输入id");
+                    int id=scanner.nextInt();
+                    System.out.println("请输入姓名");
+                    String name=scanner.next();
+                    hash.add(id,name);
+                    break;
+                case 2:
+                    System.out.println("请输入要查找的id");
+                    id= scanner.nextInt();
+                    hash.find(id);
+                    break;
+                case 3:
+                    hash.list();
+                    break;
+                case 4:
+                    System.out.println("请输入要删除的id");
+                    id=scanner.nextInt();
+                    hash.Del(id);
+                    break;
+                case 5:
+                    System.out.println("退出系统！");
+                    System.exit(0);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+class Hash{
+    public HashLinkedList[] hashLinkedLists;
+    public int size;
+    public Hash(int size){
+        super();
+        this.size=size;
+        hashLinkedLists=new HashLinkedList[size];
+        for(int i=0;i<this.size;i++){
+            hashLinkedLists[i]=new HashLinkedList();
+        }
+    }
+    public void add(int id,String name){
+        int tmp=func(id);
+        hashLinkedLists[tmp].add(id,name);
+    }
+    public void list(){
+        for(int i=0;i<size;i++){
+            hashLinkedLists[i].list(i);
+        }
+    }
+    public int func(int id){
+        return id%size;
+    }
+
+    public void find(int id){
+        int i=func(id);
+        hashLinkedLists[i].find(id);
+    }
+
+    public void Del(int id){
+        int i=func(id);
+        hashLinkedLists[i].Del(id);
+    }
+}
+class ListNode{
+    public int id;
+    public String name;
+    public ListNode next;
+    public ListNode(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+}
+
+class HashLinkedList{
+    public ListNode head;
+    public void add(int id,String name){
+        ListNode listNode=new ListNode(id,name);
+        if(head==null){
+            head=listNode;
+            return;
+        }
+        ListNode cur=head;
+        while(cur.next!=null&&cur.next.id<listNode.id){
+            cur=cur.next;
+        }
+        if(cur==head&&cur.id>listNode.id){
+            listNode.next=cur;
+            head=listNode;
+        }else{
+            listNode.next=cur.next;
+            cur.next=listNode;
+        }
+    }
+
+    public void list(int i){
+        ListNode cur=head;
+        if(cur==null){
+            System.out.println("此链表为空");
+            return;
+        }
+        System.out.print("第"+(i+1)+"链表为");
+        while(cur!=null){
+            System.out.print(" id->"+cur.id+" 姓名->"+cur.name);
+            cur=cur.next;
+        }
+        System.out.println();
+    }
+
+    public void find(int id1){
+        ListNode cur=head;
+        if(cur==null){
+            System.out.println("此链表为空");
+            return;
+        }
+        while(cur!=null){
+            if(cur.id==id1){
+                System.out.println("找到！"+" id->"+cur.id+" 姓名->"+cur.name);
+                return;
+            }
+            cur=cur.next;
+        }
+        System.out.println("为找到！");
+    }
+    public void Del(int id){
+        ListNode cur=head;
+        if(cur==null){
+            System.out.println("未找到要删除的数据");
+            return;
+        }
+        if(head.id==id){
+            head=head.next;
+            return;
+        }
+        while(cur.next!=null){
+            if(cur.next.id==id){
+                System.out.println("删除成功");
+                cur.next=cur.next.next;
+                return;
+            }
+            cur=cur.next;
+        }
+        System.out.println("未找到要删除的数据");
+    }
+}
