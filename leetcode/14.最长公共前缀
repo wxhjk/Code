@@ -12,5 +12,5 @@ class Solution {
             ret=ret.substring(0,j);
         }
         return ret;
-    } 
+    }  
 }
