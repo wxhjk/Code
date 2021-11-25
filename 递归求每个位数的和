@@ -7,7 +7,7 @@ public class text {
     }
     public static int sumAdd(int n){
      if(n<=9){
-         return n;
+         return n; 
      }
      else{
          return sumAdd(n/10)+n%10;
