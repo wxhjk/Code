@@ -17,7 +17,7 @@ public class PalindromeList {
         while(slow!=A){
             if(slow.val!=A.val){
                 return false;
-            }
+            } 
             if(A.next==slow){
                 return true;
             }
