@@ -1,0 +1,16 @@
+class Solution {
+    public String truncateSentence(String s, int k) {
+        int len=0;
+        int end=0;
+        for(int i=0;i<=s.length();i++){
+            if(i==s.length()||s.charAt(i)==' '){
+                len++;
+            }
+            if(len==k){
+                end=i;
+                break;
+            }
+        }
+         return s.substring(0,end);
+    }
+}
