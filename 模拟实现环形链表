@@ -1,0 +1,105 @@
+class Queue{
+    private int[] arr;
+    private int front;
+    private int rear;
+    private int MaxSize;
+    public Queue(int size){
+        MaxSize=size;
+        front=0;
+        rear=0;
+        arr=new int[MaxSize];
+    }
+
+    public boolean isEmpty(){
+        return front==rear;
+    }
+
+    public boolean isFull(){
+        return (rear+1)%MaxSize==front;  //牺牲一个空间换取环形队列,使得满和空的判断不同;
+    }
+
+    public void add(int ad){
+        if(isFull()){
+            System.out.println("队列已满");
+            return;
+        }
+        arr[rear]=ad;
+        rear=(rear+1)%MaxSize;
+    }
+
+    public int draw(){
+        if(isEmpty()){
+            throw new RuntimeException("队列为空");
+        }
+        int a=arr[front];
+        front=(front+1)%MaxSize;
+        return a;
+    }
+
+    public void print(){
+        if(isEmpty()){
+            System.out.println("队列为空");
+            return;
+        }
+        for(int i=0;i<(rear+MaxSize-front)%MaxSize;i++){
+            System.out.print(arr[(front+i)%MaxSize]+" ");
+        }
+        System.out.println();
+    }
+    public int show(){
+        if(isEmpty()){
+            throw new RuntimeException("队列为空");
+        }
+        return arr[front];
+    }
+}
+public class TextDemo2 {
+    public static void menu(){
+        System.out.println("1:打印");
+        System.out.println("2:增加");
+        System.out.println("3:取出");
+        System.out.println("4:展示头数据");
+        System.out.println("5:退出");
+    }
+    public static void main(String[] args) {
+        System.out.println("环形链表");
+        Queue queue=new Queue(10);
+        Scanner scanner=new Scanner(System.in);
+        while(true){
+            menu();
+            System.out.println("请选择");
+            int k=scanner.nextInt();
+            switch(k){
+                case 1:
+                    queue.print();
+                    break;
+                case 2:
+                    System.out.println("请输入数据");
+                    int a=scanner.nextInt();
+                    queue.add(a);
+                    break;
+                case 3:
+                    try {
+                        System.out.println(queue.draw());
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    break;
+                case 4:
+                    try {
+                        System.out.println(queue.show());
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    break;
+                case 5:
+                    scanner.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("请重新输入");
+                    break;
+            }
+        }
+    }
+}
