@@ -1,0 +1,154 @@
+class HeroNode2{
+    public int no;
+    public String name;
+    public String nickname;
+    public HeroNode2 next;
+    public HeroNode2 prev;
+    public HeroNode2(int no,String name,String nickname){
+        this.no=no;
+        this.name=name;
+        this.nickname=nickname;
+    }
+    @Override
+    public String toString() {
+        return "HeroNode2{" +
+                "no=" + no +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
+    }
+}
+
+class MyDoubleLinkedList{
+    HeroNode2 head=new HeroNode2(0,"","");
+    public void add(int no,String name,String nickname){
+        HeroNode2 node=new HeroNode2(no,name,nickname);
+        HeroNode2 cur=head;
+        while(cur.next!=null&&(node.no>=cur.next.no)){
+            if(node.no==cur.next.no){
+                System.out.println("no"+node.no+"已存在，添加失败");
+                return;
+            }
+            cur=cur.next;
+        }
+        node.next=cur.next;
+        if(cur.next!=null){
+            cur.next.prev=node;
+
+        }
+        node.prev=cur;
+        cur.next=node;
+
+    }
+    public void list(){
+        if(head.next==null){
+            System.out.println("链表为空");
+            return;
+        }
+        HeroNode2 cur=head.next;
+        while(cur!=null){
+            System.out.println(cur);
+            cur=cur.next;
+        }
+    }
+    public void update(int no){
+        HeroNode2 cur=head.next;
+        if(cur==null){
+            System.out.println("链表为空");
+            return;
+        }
+        Scanner scanner=new Scanner(System.in);
+        while(cur!=null){
+            if(cur.no==no){
+                System.out.println("请输入你要修改的姓名");
+                String name1=scanner.nextLine();
+                System.out.println("请输入你要修改的昵称");
+                String nickname1=scanner.nextLine();
+                cur.name=name1;
+                cur.nickname=nickname1;
+                System.out.println("修改成功！");
+                return;
+            }
+            cur=cur.next;
+        }
+        System.out.println("未找到要修改的no");
+    }
+    public void Del(int no){
+        HeroNode2 cur=head.next;
+        if(cur==null){
+            System.out.println("链表为空");
+            return;
+        }
+        while(cur!=null){
+            if(cur.no==no){
+                cur.prev.next=cur.next;
+                if(cur.next!=null){
+                    cur.next.prev=cur.prev;
+                }
+                return;
+            }
+            cur=cur.next;
+        }
+        System.out.println("no"+no+"不存在");
+    }
+    public int size(){
+        int count=0;
+        HeroNode2 cur=head.next;
+        while(cur!=null){
+            count++;
+            cur=cur.next;
+        }
+        return count;
+    }
+//    public HeroNode FindK(int k){
+//        HeroNode fast=head.next;
+//        HeroNode slow=head.next;
+//        while(k-1>0){
+//            fast=fast.next;
+//            k--;
+//        }
+//        while(fast.next!=null){
+//            fast=fast.next;
+//            slow=slow.next;
+//        }
+//        return slow;
+//    }
+    public HeroNode2 reverse(){
+        if(head.next==null){
+            System.out.println("链表为空");
+            return null;
+        }
+        HeroNode2 prev1=null;
+        HeroNode2 cur=head.next;
+        while(cur!=null){
+            HeroNode2 curNext=cur.next;
+            cur.next=prev1;
+            cur.prev=curNext;
+            prev1=cur;
+            cur=curNext;
+        }
+        return prev1;
+    }
+    public void newList(HeroNode2 heroNode){
+        HeroNode2 cur=heroNode;
+        while(cur!=null){
+            System.out.println(cur);
+            cur=cur.next;
+        }
+        System.out.println();
+    }
+}
+public class TextDemo5 {
+    public static void main(String[] args) {
+        MyDoubleLinkedList myDoubleLinkedList=new MyDoubleLinkedList();
+        myDoubleLinkedList.add(1,"a","a1");
+        myDoubleLinkedList.add(3,"b","b1");
+        myDoubleLinkedList.add(2,"c","c1");
+        myDoubleLinkedList.add(5,"d","d1");
+        myDoubleLinkedList.add(4,"e","e1");
+        myDoubleLinkedList.Del(5);
+        myDoubleLinkedList.Del(3);
+        myDoubleLinkedList.Del(1);
+        myDoubleLinkedList.list();
+    }
+}
