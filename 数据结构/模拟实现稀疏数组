@@ -1,0 +1,47 @@
+public class TextDemo1 {
+    public static void main(String[] args) {
+        int[][] chess=new int[11][11];
+        chess[1][2]=1;
+        chess[2][3]=2;
+        chess[8][9]=3;
+        int sum=0;
+        for(int[] row:chess){
+            for(int val:row){
+                System.out.print(val+" ");
+                sum=val!=0?sum+1:sum;
+            }
+            System.out.println();
+        }
+        int[][] spare=new int[sum+1][3];
+        spare[0][0]=chess.length;
+        spare[0][1]=chess.length;
+        spare[0][2]=sum;
+        int count=0;
+        for(int i=0;i<chess.length;i++){
+            for(int j=0;j<chess.length;j++){
+                if(chess[i][j]!=0){
+                    count++;
+                    spare[count][0]=i;
+                    spare[count][1]=j;
+                    spare[count][2]=chess[i][j];
+                }
+            }
+        }
+        for(int[] row:spare){
+            for(int val:row){
+                System.out.print(val+" ");
+            }
+            System.out.println();
+        }
+        int[][] chess1=new int[spare[0][0]][spare[0][1]];
+        for(int i=1;i< spare.length;i++){
+            chess1[spare[i][0]][spare[i][1]]=spare[i][2];
+        }
+        for(int[] row:chess1){
+            for(int val:row){
+                System.out.print(val+" ");
+            }
+            System.out.println();
+        }
+    }
+}
