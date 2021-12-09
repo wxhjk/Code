@@ -1,0 +1,21 @@
+public class TextDemo7 {
+    public static void main(String[] args) {
+        System.out.println(Joseph(4, 2));
+        System.out.println(Joseph(100, 2));
+        System.out.println(Joseph2(100,2));
+    }
+    //f(N,M)=(f(N−1,M)+M)%N
+    public static int Joseph2(int N,int M){
+        if(N==1){
+            return 1;
+        }
+        return (Joseph2(N-1,M)-1+M)%N+1;
+    }
+    public static int Joseph(int N,int M){
+        int p=0;
+        for(int i=2;i<=N;i++){
+            p=(p+M)%i;
+        }
+        return p+1;
+    }
+}
