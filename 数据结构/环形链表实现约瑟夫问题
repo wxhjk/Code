@@ -1,0 +1,84 @@
+class ListNode{
+    public int val;
+    public ListNode next;
+    public ListNode(int val){
+        this.val=val;
+    }
+}
+
+class CLinkedList{
+    public ListNode head;
+//    public void add(int num){
+//       ListNode node=new ListNode(num);
+//       if(head==null){
+//           head=node;
+//       }else{
+//           ListNode cur=head;
+//           while(cur.next!=head){ //不能等于null.因为是环形链表.
+//               cur=cur.next;
+//           }
+//           cur.next=node;
+//       }
+//        node.next=head;
+//    }
+    public void add(int num){
+        ListNode cur=head;
+        for(int i=1;i<=num;i++){
+            ListNode listNode=new ListNode(i);
+            if(i==1){
+                head=listNode;
+                listNode.next=head;
+                cur=head;
+            }else{
+                cur.next=listNode;
+                listNode.next=head;
+                cur=listNode;
+            }
+        }
+    }
+    public void list(){
+        if(head==null){
+            System.out.println("环形链表为空!");
+            return;
+        }
+        ListNode cur=head;
+        while(cur.next!=head){
+            System.out.print(cur.val+" ");
+            cur=cur.next;
+        }
+        System.out.print(cur.val+" ");
+        System.out.println();
+    }
+    public void Joseph(int no,int m,int num){
+        if(head==null||no>num||no<0){
+            System.out.println("错误");
+            return;
+        }
+        ListNode first=head;
+        for(int i=1;i<no;i++){
+            first=first.next;
+        }
+        ListNode cur=first;
+        while(cur.next!=first){
+            cur=cur.next;
+        }
+        while(first!=cur){
+            for(int i=0;i<m-1;i++){
+                first=first.next;
+                cur=cur.next;
+            }
+            cur.next=first.next;
+            System.out.println(first.val+"出圈");
+            first=first.next;
+        }
+        System.out.println("剩下"+first.val);
+    }
+}
+public class TextDemo6 {
+    public static void main(String[] args) {
+        CLinkedList cLinkedList=new CLinkedList();
+        cLinkedList.add(100);
+        cLinkedList.list();
+        cLinkedList.Joseph(1,2,100);
+    }
+}
