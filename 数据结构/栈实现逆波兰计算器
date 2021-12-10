@@ -1,0 +1,50 @@
+public class TextDemo2 {
+    public static void main(String[] args) {
+        //逆波兰表达式
+        String str="4 5 * 8 - 60 + 8 2 / +";
+        List<String> list=getListString(str);
+        int sum=calculate(list);
+        System.out.println(sum);
+    }
+    public static List<String> getListString(String str){
+        String[] strings=str.split(" ");
+        List<String> list=new ArrayList<>();
+        for(String s:strings){
+            list.add(s);
+        }
+        return list;
+    }
+    public static int calculate(List<String> list){
+        int num1=0;
+        int num2=0;
+        int res=0;
+        Stack<Integer> stack=new Stack<>();
+        for(String s:list){
+            if(s.matches("\\d+")){
+                stack.push(Integer.valueOf(s));
+            }else{
+                num1=stack.pop();
+                num2=stack.pop();
+                switch (s){
+                    case "+":
+                        res=num1+num2;
+                        break;
+                    case "-":
+                        res=num2-num1;
+                        break;
+                    case "*":
+                        res=num1*num2;
+                        break;
+                    case "/":
+                        res=num2/num1;
+                        break;
+                    default:
+                        System.out.println("符号错误!");
+                        break;
+                }
+                stack.push(res);
+            }
+        }
+        return stack.pop();
+    }
+}
