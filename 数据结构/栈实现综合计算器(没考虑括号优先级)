@@ -1,0 +1,77 @@
+public class TextDemo1 {
+    public static void main(String[] args) {
+        String str="10000-30*2+5*10+20";
+        System.out.println(calculation(str));
+    }
+    public static int priority(char ch){
+        if(ch=='*'||ch=='/'){
+            return 1;
+        }else if(ch=='+'||ch=='-'){
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+    public static boolean isOperation(char ch){
+        return ch=='*'||ch=='/'||ch=='+'||ch=='-';
+    }
+    public static int calculation(String str){
+        Stack<Integer> numStack=new Stack<>();
+        Stack<Character> opeStack=new Stack<>();
+        int num1=0;
+        int num2=0;
+        int res=0;
+        for(int i=0;i<str.length();i++){
+            int flag=1;
+            if(isOperation(str.charAt(i))){
+                if (!opeStack.isEmpty()) {
+                    if (priority(str.charAt(i)) < priority(opeStack.peek())) {
+                        num1 = numStack.pop();
+                        num2 = numStack.pop();
+                        res = calculate(num1, num2, opeStack.pop());
+                        numStack.push(res);
+                    }
+                }
+                opeStack.push(str.charAt(i));
+            }else{
+                if(!opeStack.isEmpty()&&opeStack.peek()=='-'){
+                    flag=-flag;
+                    opeStack.pop();
+                    opeStack.push('+');
+                }
+                int sum=str.charAt(i)-'0';
+                while(i<str.length()-1&&!isOperation(str.charAt(i+1))){
+                    sum=sum*10+(str.charAt(i+1)-'0');
+                    i++;
+                }
+                numStack.push(sum*flag);
+            }
+        }
+        while(!opeStack.isEmpty()){
+            char ch=opeStack.pop();
+            num1=numStack.pop();
+            num2=numStack.pop();
+            res=calculate(num1,num2,ch);
+            numStack.push(res);
+        }
+        return numStack.pop();
+    }
+    public static int calculate(int num1,int num2,char ch){
+        int res=0;
+        switch (ch){
+            case '*':
+                res=num1*num2;
+                break;
+            case '+':
+                res=num1+num2;
+                break;
+            case '-':
+                res=num2-num1;
+                break;
+            case '/':
+                res=num2/num1;
+                break;
+        }
+        return res;
+    }
+}
