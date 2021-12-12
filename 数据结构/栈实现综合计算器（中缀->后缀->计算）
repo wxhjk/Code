@@ -1,0 +1,132 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+
+/**
+ * Created with IntelliJ IDEA.
+ * Description:
+ * User: 85130
+ * Date: 2021-12-10
+ * Time: 17:01
+ */
+public class TextDemo2 {
+    public static void main(String[] args) {
+        //中缀->后缀->计算
+        String str="1+(100*3+200)*2-3";
+        int sum=calculate(combine(str));
+        System.out.println(sum);
+    }
+//    public static List<String> getListString(String str){
+//        String[] strings=str.split(" ");
+//        List<String> list=new ArrayList<>();
+//        for(String s:strings){
+//            list.add(s);
+//        }
+//        return list;
+//    }
+    public static List<String> arrList(String[] str){
+        List<String> list=new ArrayList<>();
+        for(String s:str){
+            list.add(s);
+        }
+        return list;
+    }
+    public static List<String> combine(String str){
+        return arrList(change((turnList(str))));
+    }
+    public static int calculate(List<String> list){
+        int num1=0;
+        int num2=0;
+        int res=0;
+        Stack<Integer> stack=new Stack<>();
+        for(String s:list){
+            if(s.matches("\\d+")){
+                stack.push(Integer.valueOf(s));
+            }else{
+                num1=stack.pop();
+                num2=stack.pop();
+                switch (s){
+                    case "+":
+                        res=num1+num2;
+                        break;
+                    case "-":
+                        res=num2-num1;
+                        break;
+                    case "*":
+                        res=num1*num2;
+                        break;
+                    case "/":
+                        res=num2/num1;
+                        break;
+                    default:
+                        System.out.println("符号错误!");
+                        break;
+                }
+                stack.push(res);
+            }
+        }
+        return stack.pop();
+    }
+    public static List<String> turnList(String str){   //要考虑多位数转换
+        List<String> list=new ArrayList<>();
+        for(int i=0;i<str.length();i++){
+            StringBuilder s=new StringBuilder(str.charAt(i)+"");
+            if(s.toString().matches("\\d")){
+                while(i<str.length()-1&&(str.charAt(i+1)+"").matches("\\d")){
+                    s.append(str.charAt(i+1));
+                    i++;
+                }
+            }
+            list.add(s.toString());
+        }
+        return list;
+    }
+    public static String[] change(List<String> list){
+        Stack<String> num=new Stack<>();
+        Stack<String> ope=new Stack<>();
+        for(String s:list){             //入栈
+            if(s.matches("\\d+")){
+                num.push(s);
+            }else if(s.equals("(")){
+                ope.push(s);
+            }else if(s.equals(")")){
+                while(!ope.peek().equals("(")){
+                    num.push(ope.pop());
+                }
+                ope.pop();
+            }else{
+                if(ope.isEmpty()){
+                    ope.push(s);
+                }else{
+                    if(priority1(s)>priority1(ope.peek())){
+                        ope.push(s);
+                    }else{
+                        while(!ope.isEmpty()&&!(priority1(s)>priority1(ope.peek()))){
+                            num.push(ope.pop());
+                        }
+                        ope.push(s);
+                    }
+                }
+            }
+        }
+        while(!ope.isEmpty()){
+            num.push(ope.pop());
+        }
+        String[] arr=new String[num.size()];
+        int i= num.size()-1;
+        while(!num.isEmpty()){
+            arr[i--]=num.pop();
+        }
+        return arr;
+    }
+    public static int priority1(String s){
+        if(s.equals("*")||s.equals("/")){
+            return 1;
+        }else if(s.equals("+")||s.equals("-")){
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+}
