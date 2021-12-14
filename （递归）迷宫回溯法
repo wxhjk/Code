@@ -1,0 +1,85 @@
+public class TextDemo5 {
+    public static void main(String[] args) {
+        int[][] maze=new int[8][7];
+        initialize(maze);
+        maze[3][1]=1;
+        maze[3][2]=1;
+        show(maze);
+//        System.out.println(findWays(maze,1,1));
+//        show(maze);
+        System.out.println(findWays2(maze,1,1));
+        show(maze);
+
+    }
+    public static void initialize(int[][] maze){
+        for(int i=0;i<maze.length;i++){
+            maze[i][0]=1;
+            maze[i][maze[0].length-1]=1;
+        }
+        for(int j=0;j<maze[0].length;j++){
+            maze[0][j]=1;
+            maze[maze.length-1][j]=1;
+        }
+    }
+    public static void show(int[][] maze){
+        for(int i=0;i<maze.length;i++){
+            for(int j=0;j<maze[0].length;j++){
+                System.out.print(maze[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     *
+     * @param maze
+     * @param i   起始坐标
+     * @param j   起始坐标  当前的策略是下-右-上-左
+     * @return
+     */
+    public static boolean findWays(int[][]maze,int i,int j){
+        if(maze[6][5]==2){
+            return true;
+        }
+        if(maze[i][j]==0){
+            maze[i][j]=2;
+            if(findWays(maze,i+1,j)){
+                return true;
+            }else if(findWays(maze,i,j+1)){
+                return true;
+            }else if(findWays(maze,i-1,j)){
+                return true;
+            }else if(findWays(maze,i,j-1)){
+                return true;
+            }else{
+                maze[i][j]=3;
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    //当前策略上-右-下-左
+    public static boolean findWays2(int[][]maze,int i,int j){
+        if(maze[6][5]==2){
+            return true;
+        }
+        if(maze[i][j]==0){
+            maze[i][j]=2;
+            if(findWays2(maze,i-1,j)){
+                return true;
+            }else if(findWays2(maze,i,j+1)){
+                return true;
+            }else if(findWays2(maze,i+1,j)){
+                return true;
+            }else if(findWays2(maze,i,j-1)){
+                return true;
+            }else{
+                maze[i][j]=3;
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+}
