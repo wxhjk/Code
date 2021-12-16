@@ -1,0 +1,23 @@
+public class TextDemo3 {
+    public static void main(String[] args) {
+        int[] arr={8,9,1,7,2,3,5,4,1,0};
+        shell(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+    public static void shell(int[] arr){
+       int len=arr.length;
+       while(len/2!=0){
+           len/=2;
+           for(int i=len;i< arr.length;i++){
+               for(int j=i-len;j>=0&&arr[j]>arr[j+len];j-=len){
+                   swap(arr,j,j+len);
+               }
+           }
+       }
+    }
+    public static void swap(int[] arr,int i,int j){
+        int tmp=arr[i];
+        arr[i]=arr[j];
+        arr[j]=tmp;
+    }
+}
