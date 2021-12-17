@@ -1,0 +1,123 @@
+class BinaryTree{
+    private ListNode root;
+    public void setRoot(ListNode root){
+        this.root=root;
+    }
+    public void preOrder(){
+        root.preOrder();
+    }
+    public void infixOrder(){
+        root.infixOrder();
+    }
+    public void postOrder(){
+        root.postOrder();
+    }
+
+}
+class ListNode{
+    private int no;
+    private String name;
+    private ListNode left;
+    private ListNode right;
+
+    public ListNode(int no, String name) {
+        this.no = no;
+        this.name = name;
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ListNode getLeft() {
+        return left;
+    }
+
+    public void setLeft(ListNode left) {
+        this.left = left;
+    }
+
+    public ListNode getRight() {
+        return right;
+    }
+
+    public void setRight(ListNode right) {
+        this.right = right;
+    }
+
+    @Override
+    public String toString() {
+        return "ListNode{" +
+                "no=" + no +
+                ", name='" + name + '\'' +
+                '}';
+    }
+    //前序遍历
+    public void preOrder(){
+        System.out.println(this);
+        if(this.getLeft()!=null){
+            this.getLeft().preOrder();
+        }
+        if(this.getRight()!=null){
+            this.getRight().preOrder();
+        }
+    }
+    //中序遍历
+    public void infixOrder(){
+        if(this.getLeft()!=null){
+            this.getLeft().infixOrder();
+        }
+        System.out.println(this);
+        if(this.getRight()!=null){
+            this.getRight().infixOrder();
+        }
+    }
+    //后序遍历
+    public void postOrder(){
+        if(this.getLeft()!=null){
+            this.getLeft().postOrder();
+        }
+        if(this.getRight()!=null){
+            this.getRight().postOrder();
+        }
+        System.out.println(this);
+    }
+
+}
+public class TextDemo1 {
+    public static void main(String[] args) {
+        ListNode listNode1=new ListNode(1,"11");
+        ListNode listNode2=new ListNode(2,"22");
+        ListNode listNode3=new ListNode(3,"33");
+        ListNode listNode4=new ListNode(4,"44");
+        ListNode listNode5=new ListNode(5,"55");
+        ListNode listNode6=new ListNode(6,"66");
+        ListNode listNode7=new ListNode(7,"77");
+        listNode1.setLeft(listNode2);
+        listNode1.setRight(listNode3);
+        listNode2.setLeft(listNode4);
+        listNode2.setRight(listNode5);
+        listNode3.setLeft(listNode6);
+        listNode3.setRight(listNode7);
+        BinaryTree binaryTree=new BinaryTree();
+        binaryTree.setRoot(listNode1);
+        System.out.println("前序遍历");
+        binaryTree.preOrder();
+        System.out.println("中序遍历");
+        binaryTree.infixOrder();
+        System.out.println("后序遍历");
+        binaryTree.postOrder();
+    }
+}
