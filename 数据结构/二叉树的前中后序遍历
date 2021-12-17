@@ -1,16 +1,30 @@
 class BinaryTree{
-    private ListNode root;
-    public void setRoot(ListNode root){
-        this.root=root;
+    //前序遍历
+    public void preOrder(ListNode listNode){
+        if(listNode==null){
+            return;
+        }
+        System.out.println(listNode);
+        preOrder(listNode.getLeft());
+        preOrder(listNode.getRight());
     }
-    public void preOrder(){
-        root.preOrder();
+    //中序遍历
+    public void infixOrder(ListNode listNode){
+        if(listNode==null){
+            return;
+        }
+        infixOrder(listNode.getLeft());
+        System.out.println(listNode);
+        infixOrder(listNode.getRight());
     }
-    public void infixOrder(){
-        root.infixOrder();
-    }
-    public void postOrder(){
-        root.postOrder();
+    //后序遍历
+    public void postOrder(ListNode listNode){
+        if(listNode==null){
+            return;
+        }
+        postOrder(listNode.getLeft());
+        postOrder(listNode.getRight());
+        System.out.println(listNode);
     }
 
 }
@@ -64,37 +78,6 @@ class ListNode{
                 ", name='" + name + '\'' +
                 '}';
     }
-    //前序遍历
-    public void preOrder(){
-        System.out.println(this);
-        if(this.getLeft()!=null){
-            this.getLeft().preOrder();
-        }
-        if(this.getRight()!=null){
-            this.getRight().preOrder();
-        }
-    }
-    //中序遍历
-    public void infixOrder(){
-        if(this.getLeft()!=null){
-            this.getLeft().infixOrder();
-        }
-        System.out.println(this);
-        if(this.getRight()!=null){
-            this.getRight().infixOrder();
-        }
-    }
-    //后序遍历
-    public void postOrder(){
-        if(this.getLeft()!=null){
-            this.getLeft().postOrder();
-        }
-        if(this.getRight()!=null){
-            this.getRight().postOrder();
-        }
-        System.out.println(this);
-    }
-
 }
 public class TextDemo1 {
     public static void main(String[] args) {
@@ -112,12 +95,11 @@ public class TextDemo1 {
         listNode3.setLeft(listNode6);
         listNode3.setRight(listNode7);
         BinaryTree binaryTree=new BinaryTree();
-        binaryTree.setRoot(listNode1);
         System.out.println("前序遍历");
-        binaryTree.preOrder();
+        binaryTree.preOrder(listNode1);
         System.out.println("中序遍历");
-        binaryTree.infixOrder();
+        binaryTree.infixOrder(listNode1);
         System.out.println("后序遍历");
-        binaryTree.postOrder();
+        binaryTree.postOrder(listNode1);
     }
 }
