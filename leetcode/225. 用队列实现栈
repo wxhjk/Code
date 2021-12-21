@@ -15,7 +15,7 @@ class MyStack {
     public int pop() {
         return queue.poll();
     }
-    public int top() {
+    public int top() { 
         return queue.peek();
     }
     
