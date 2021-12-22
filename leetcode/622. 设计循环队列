@@ -1,0 +1,62 @@
+class MyCircularQueue {
+    int[] arr;
+    int front;
+    int rear;
+    int size;
+    public MyCircularQueue(int k) {
+        arr=new int[k+1];
+        front=0;
+        rear=-1;
+        size=k; 
+    }
+    
+    public boolean enQueue(int value) {
+        if(!isFull()){
+            rear=(rear+1)%arr.length;
+            arr[rear]=value;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean deQueue() {
+        if(!isEmpty()){
+            front=(front+1)%arr.length;
+            return true;
+        }
+        return false;
+    }
+    
+    public int Front() {
+        if(isEmpty()){
+            return -1;
+        }
+        return arr[front];
+    }
+    
+    public int Rear() {
+        if(isEmpty()){
+            return -1;
+        }
+        return arr[rear];
+    }
+    
+    public boolean isEmpty() {
+        return rear+1==front;
+    }
+    
+    public boolean isFull() {
+        return rear==(front+size-1)%(arr.length);
+    }
+}
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue obj = new MyCircularQueue(k);
+ * boolean param_1 = obj.enQueue(value);
+ * boolean param_2 = obj.deQueue();
+ * int param_3 = obj.Front();
+ * int param_4 = obj.Rear();
+ * boolean param_5 = obj.isEmpty();
+ * boolean param_6 = obj.isFull();
+ */
