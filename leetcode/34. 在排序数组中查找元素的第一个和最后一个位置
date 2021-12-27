@@ -1,0 +1,29 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int index = find(nums, target);
+        int left = index;
+        int right = index;
+        while (left > 0 && nums[left-1] == target) {
+            left--;
+        } 
+        while (right < nums.length - 1 && nums[right+1] == target) {
+            right++;
+        }
+        return new int[]{left,right};
+    }
+    public int find(int[] nums, int target) {
+        int L = 0;
+        int R = nums.length-1;
+        while (L <= R) {
+            int mid = L + ((R - L) >> 1);
+            if (nums[mid] == target) {
+                return mid;
+            }else if (nums[mid] > target) {
+                R = mid - 1;
+            }else {
+                L = mid + 1;
+            }
+        }
+        return -1;
+    }
+}
