@@ -16,3 +16,16 @@ class Solution {
         return slow;
     }
 }
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int fast = 1;
+        int slow;
+        for (slow = 0; fast < nums.length; fast++){
+            if (nums[slow] != nums[fast]){
+                nums[++slow] = nums[fast];
+            }
+        }
+        return ++slow;
+    }
+}
