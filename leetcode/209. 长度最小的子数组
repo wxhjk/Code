@@ -1,0 +1,39 @@
+//滑动窗口法
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int sum = 0;
+        int i = 0;
+        for (int j = 0; j < nums.length; j++) {
+            sum += nums[j];
+            while (sum >= target) {
+                int len = j - i + 1;
+                min = min < len ? min : len;
+                sum -= nums[i++];
+            } 
+        }
+        return min == Integer.MAX_VALUE ? 0 : min;
+    }
+}
+
+//前缀加二分法
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int[] arr = new int[nums.length+1];
+        for (int i = 1; i <= nums.length; i++) {
+            arr[i] = arr[i-1] + nums[i-1];
+        }
+        for (int i = 1; i <= nums.length; i++) {
+            int find = target + arr[i-1];
+            int j = Arrays.binarySearch(arr,find);
+            if (j < 0) {
+                j = - j - 1;
+            }
+            if (j <= nums.length) {
+                min = Math.min(min,j - i + 1);
+            }
+        }
+        return min == Integer.MAX_VALUE ? 0 : min;
+    }
+}
