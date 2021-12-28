@@ -36,3 +36,37 @@ class Solution {
         return minStr; 
     }
 }
+
+
+
+
+class Solution {
+    public String minWindow(String s, String t) {
+        char[] sarr = s.toCharArray();
+        char[] tarr = t.toCharArray();
+        int m = sarr.length;
+        int n =tarr.length;
+        int[] hash = new int[128];
+        for (char ch:tarr) {
+            hash[ch]--;
+        }
+        int j = 0;
+        int count = 0;
+        String str = "";
+        for (int i = 0; i < m; i++) {
+            hash[sarr[i]]++;
+            if (hash[sarr[i]] <= 0) {
+                count++;
+            }
+            while (count == n && hash[sarr[j]] > 0) {
+                hash[sarr[j++]]--;
+            }
+            if (count == n) {
+                if (str.equals("") || str.length() > i - j + 1) {
+                    str = s.substring(j,i + 1);
+               }  
+            }
+        }
+        return str;
+    }
+}
