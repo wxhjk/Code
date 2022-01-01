@@ -29,3 +29,39 @@ class Solution {
         return arr;
     }
 }
+
+
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] arr = new int[n][n];
+        int l = 0;
+        int r = n - 1;
+        int t = 0;
+        int b = n - 1;
+        int x = n * n;
+        int s = 1;
+        while (x >= 1) {
+            for (int i = l; i <= r; i++) {
+                arr[l][i] = s++;
+                x--;
+            }
+            t++;
+            for (int i = t; i <= b; i++) {
+                arr[i][r] = s++;
+                x--;
+            }
+            r--;
+            for (int i = r; i >= l; i--) {
+                arr[b][i] = s++;
+                x--;
+            }
+            b--;
+            for (int i = b; i >= t; i--) {
+                arr[i][l] = s++;
+                x--;
+            }
+            l++;
+        }
+        return arr;
+    }
+}
