@@ -1,0 +1,31 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int x = 1;
+        int loop = n / 2;
+        int i = 0;
+        int j = 0;
+        int m = loop;
+        int[][] arr = new int[n][n];
+        while (loop > 0) {
+            for (;j < n - (m - loop) - 1;j++) {
+                arr[i][j] = x++;
+            }
+            for (;i < n - (m - loop) - 1;i++) {
+                arr[i][j] = x++;
+            }
+            for (;j > m - loop;j--) {
+                arr[i][j] = x++;
+            }
+            for (;i > m - loop;i--) {
+                arr[i][j] = x++;
+            }
+            i++;
+            j++;
+            loop--;
+        }
+        if (n % 2 == 1) {
+            arr[i][j] = x;
+        }
+        return arr;
+    }
+}
