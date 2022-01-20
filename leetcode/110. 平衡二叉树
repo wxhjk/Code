@@ -1,3 +1,27 @@
+//O(N)
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return isLength(root) > 0;
+    }
+    public int isLength(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = isLength(root.left);
+        int right = isLength(root.right);
+        if (left >= 0 && right >= 0 && Math.abs(left - right) <= 1) {
+            return Math.max(left,right) + 1;
+        }else {
+            return -1;
+        }
+    } 
+}
+
+ 
+//O(N^2)
 class Solution {
     public boolean isBalanced(TreeNode root) {
         if (root == null) {
