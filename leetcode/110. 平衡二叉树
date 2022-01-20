@@ -1,0 +1,17 @@
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (Math.abs(isLength(root.left) - isLength(root.right)) > 1) {
+            return false;
+        }
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
+    public int isLength(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return Math.max(isLength(root.left),isLength(root.right)) + 1;
+    } 
+}
