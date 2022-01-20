@@ -1,0 +1,39 @@
+import java.util.*;
+class TreeNode {
+    public char val;
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode (char val) {
+        this.val = val;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String str1 = in.nextLine();
+       inOrder(Tree(str1));
+    }
+    public static void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);
+        System.out.print(root.val + " ");
+        inOrder(root.right);
+    }
+    
+    static int i = 0;
+    public static TreeNode Tree (String str) {
+        TreeNode root = null;
+        if (str.charAt(i) != '#') {
+            root = new TreeNode(str.charAt(i));
+            i++;
+            root.left = Tree(str);
+            root.right = Tree(str);
+        }else {
+            i++;
+        }
+        return root;
+    }
+}                            
