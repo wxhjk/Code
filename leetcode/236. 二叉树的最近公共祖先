@@ -1,0 +1,75 @@
+//递归，使用搜索二叉树的原理
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+        if (root == p || root == q) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left,p,q);
+        TreeNode right = lowestCommonAncestor(root.right,p,q);
+        if (left != null && right != null) {
+            return root;
+        }
+        return left == null ? right : left;
+    }
+}
+//双亲孩子表示的节点
+
+与链表的交点同理
+
+//用栈解决
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+        path(root,p,stack1);
+        path(root,q,stack2);
+        int size1 = stack1.size();
+        int size2 = stack2.size();
+        if (size1 < size2) {
+            int tmp = size1;
+            size1 = size2;
+            size2 = tmp;
+            Stack<TreeNode> stmp  = stack1;
+            stack1 = stack2;
+            stack2 = stmp;
+        }
+        int x = size1 - size2;
+        while (x > 0) {
+            stack1.pop();
+            x--;
+        }
+        TreeNode cur = null;
+        TreeNode cur2 = null;
+        while (!stack1.isEmpty()) {
+            cur = stack1.pop();
+            cur2 = stack2.pop();
+            if (cur == cur2) {
+                break;
+            }
+        }
+        return cur;
+    }
+    public boolean path (TreeNode root,TreeNode cur, Stack<TreeNode> stack) {
+        if (root == null || cur == null) {
+            return false;
+        }
+        stack.push(root);
+        if (root == cur) {
+            return true;
+        }
+        if (path(root.left,cur,stack)) {
+            return true;
+        }
+        if (path(root.right,cur,stack)) {
+            return true;
+        }
+        stack.pop();
+        return false;
+    }
+}
