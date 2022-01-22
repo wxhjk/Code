@@ -1,0 +1,26 @@
+public class Solution {
+    public TreeNode Convert(TreeNode pRootOfTree) {
+        if (pRootOfTree == null) {
+            return null;
+        }
+        inOrder(pRootOfTree);
+        TreeNode head = pRootOfTree;
+        while (head.left != null) {
+            head = head.left;
+        }
+        return head;
+    }
+    public TreeNode prev = null;
+    public void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);
+        root.left = prev;
+        if (prev != null) {
+            prev.right = root;
+        }
+        prev = root;
+        inOrder(root.right);
+    }
+}
