@@ -1,0 +1,46 @@
+class Solution {
+    StringBuilder stringbuilder = new StringBuilder();
+    public String tree2str(TreeNode root) {
+        preOrder(root);
+        return stringbuilder.toString();
+    }
+    public void preOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        stringbuilder.append(root.val);
+        if (root.left != null) {
+            stringbuilder.append("(");
+            preOrder(root.left);
+            stringbuilder.append(")");
+        }else {
+            if (root.right == null) {
+                return;
+            }
+            stringbuilder.append("()");
+        }
+        if (root.right == null) {
+            return;
+        }else {
+            stringbuilder.append("(");
+            preOrder(root.right);
+            stringbuilder.append(")");
+        }
+    }
+}
+
+
+class Solution {
+    public String tree2str(TreeNode root) {
+        if (root == null) {
+            return "";
+        }
+        if (root.left == null && root.right == null) {
+            return root.val + "";
+        }
+        if (root.right == null) {
+            return root.val + "(" + tree2str(root.left) + ")"; 
+        }
+        return root.val + "(" + tree2str(root.left) + ")" + "(" + tree2str(root.right) + ")";
+    }
+}
