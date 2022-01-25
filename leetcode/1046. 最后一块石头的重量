@@ -1,0 +1,24 @@
+class Solution {
+    static Comparator<Integer> cmp = new Comparator<Integer>() {
+        public int compare(Integer o1, Integer o2) {
+            return o2-o1;
+        }
+    };
+    public int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(cmp);
+        for (int x : stones) {
+            pq.offer(x);
+        }
+        while (pq.size() > 1) {
+            int x = pq.poll();
+            int y = pq.poll();
+            if (x != y) {
+                pq.offer(x - y);
+            }
+        }
+        if (pq.size() == 1) {
+            return pq.poll();
+        }
+        return 0;
+    }
+}
