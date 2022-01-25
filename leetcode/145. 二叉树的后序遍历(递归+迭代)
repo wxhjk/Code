@@ -70,22 +70,22 @@ class Solution {
 //也是一个栈
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> list=new ArrayList<>();
-        Stack<TreeNode> stack=new Stack<>();
-        TreeNode prev=null;
-        while(root!=null||!stack.isEmpty()){
-            while(root!=null){
-                stack.push(root);
-                root=root.left;
+        List<Integer> list = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        TreeNode prev = null;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur !=null) {
+                stack.push(cur);
+                cur = cur.left;
             }
-            root=stack.pop();
-            if(root.right==null||root.right==prev){
-                list.add(root.val);
-                prev=root;
-                root=null;
-            }else{
-                stack.push(root);
-                root=root.right;
+            TreeNode node = stack.pop();
+            if (node.right == null || node.right == prev) {
+                list.add(node.val);
+                prev = node;
+            }else {
+                stack.push(node);
+                cur = node.right;
             }
         }
         return list;
