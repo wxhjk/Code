@@ -1,0 +1,19 @@
+class Solution {
+    public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i : nums1) {
+            for (int j : nums2) {
+                int tmp = i + j;
+                map.put(tmp,map.getOrDefault(tmp,0) + 1);
+            }
+        }
+        int sum = 0;
+        for (int x : nums3) {
+            for (int y : nums4) {
+                int tmp  = x + y;
+                sum += map.getOrDefault(-tmp,0);
+            }
+        }
+        return sum;
+    }
+}
