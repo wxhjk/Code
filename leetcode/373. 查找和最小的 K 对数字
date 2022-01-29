@@ -1,0 +1,37 @@
+class Solution {
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        PriorityQueue<List<Integer>> pq = new PriorityQueue<>(k,new Comparator<List<Integer>>() {
+            public int compare(List<Integer> list1, List<Integer> list2) {
+                return (list2.get(0) + list2.get(1)) - (list1.get(0) + list1.get(1));
+            }
+        });
+        for (int i = 0; i < Math.min(nums1.length,k); i++) {
+            for(int j = 0; j < Math.min(nums2.length,k); j++) {
+                List<Integer> list = new ArrayList<>();
+                list.add(nums1[i]);
+                list.add(nums2[j]);
+                if (pq.size() < k) {
+                    pq.offer(list);
+                }else {
+                    if ((list.get(0) + list.get(1)) < (pq.peek().get(0) + pq.peek().get(1))) {
+                        pq.poll();
+                        pq.offer(list);
+                    }
+                }
+            }
+        }
+        List<List<Integer>> list3 = new ArrayList<>();
+        while (!pq.isEmpty()) {
+            list3.add(pq.poll());
+        }
+        Collections.reverse(list3);
+        return list3;
+    }
+    // public int getSum(List<Integer> list) {
+    //     int sum = 0;
+    //     for (int x : list) {
+    //         sum += x;
+    //     }
+    //     return sum;
+    // }
+}
