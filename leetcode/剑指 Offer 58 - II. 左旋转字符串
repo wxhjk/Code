@@ -1,0 +1,28 @@
+//申请了额外的空间O(n);
+class Solution {
+    public String reverseLeftWords(String s, int n) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(s.substring(n,s.length()));
+        sb.append(s.substring(0,n));
+        return sb.toString();
+    }
+}
+
+//O(1)
+class Solution {
+    public String reverseLeftWords(String s, int n) {
+        StringBuilder sb = new StringBuilder(s);
+        reverse(sb,0,n - 1);
+        reverse(sb,n,sb.length() - 1);
+        return sb.reverse().toString();
+    }
+    public void reverse(StringBuilder sb,int left,int right) {
+        while (left < right) {
+            char ch = sb.charAt(left);
+            sb.setCharAt(left,sb.charAt(right));
+            sb.setCharAt(right,ch);
+            left++;
+            right--;
+        }
+    }
+}
