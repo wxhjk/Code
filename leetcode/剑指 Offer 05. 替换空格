@@ -1,0 +1,46 @@
+class Solution {
+    public String replaceSpace(String s) {
+       StringBuilder sb = new StringBuilder(); 
+       char[] str = s.toCharArray();
+       for (char ch : str) {
+           if (ch != ' ') {
+               sb.append(ch);
+           }else {
+               sb.append("%20");
+           }
+       }
+       return sb.toString();
+    }
+}
+
+
+class Solution {
+    public String replaceSpace(String s) {
+        StringBuilder sb = new StringBuilder();
+        char[] str = s.toCharArray();
+        for (char ch : str) {
+            if (ch == ' ') {
+                sb.append("  ");
+            }
+        }
+        if (sb.length() == 0) {
+            return s;
+        }
+        int left = s.length() - 1;
+        s += sb;
+        int right = s.length() - 1;
+        char[] str2 = s.toCharArray();
+        while (left >= 0) {
+            if (str2[left] == ' ') {
+                str2[right--] = '0';
+                str2[right--] = '2';
+                str2[right] = '%';
+            }else {
+                str2[right] = str2[left];
+            }
+            left--;
+            right--;
+        }
+        return new String(str2);
+    }
+}
