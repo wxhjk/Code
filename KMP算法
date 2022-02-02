@@ -55,3 +55,17 @@ public class TextDemo {
         }
     }
 }
+
+
+        int k = -1;
+        next[0] = k;
+        int i = 1;
+        while (i < sub.length()) {
+            if (k == -1 || sub.charAt(i - 1) == sub.charAt(k)) {
+                next[i] = k + 1;
+                i++;
+                k++;
+            }else {
+                k = next[k];
+            }
+        }
