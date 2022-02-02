@@ -1,0 +1,101 @@
+public class TextDemo {
+    public static void main(String[] args) {
+        int[] arr = {5,8,3,4,2,9,1,0,3};
+        quickSort2(arr,0,arr.length - 1);
+        System.out.println(Arrays.toString(arr));
+    }
+    public static void quickSort(int[] arr,int L,int R) {
+        if (L >= R) {
+            return;
+        }
+        //调用插入排序
+        if (R - L + 1 > 3) {
+            insertSort(arr,L,R);
+            return;
+        }
+        //先使用三数取中找基值
+        int index = findIndex(arr,L,R);
+        swap(arr,index,R);
+        int[] p = partition(arr,L,R);
+        quickSort(arr,L,p[0]);
+        quickSort(arr,p[1],R);
+    }
+    //查找三数中值
+    public static int findIndex(int[] arr,int L,int R) {
+        int mid = L + ((R - L) >> 1);
+        if (arr[L] < arr[R]) {
+            if (arr[mid] > arr[R]) {
+                return R;
+            }else if (arr[mid] > arr[L]) {
+                return mid;
+            }else {
+                return L;
+            }
+        }else {
+            if (arr[mid] > arr[L]) {
+                return L;
+            }else if (arr[mid] > arr[R]) {
+                return mid;
+            }else {
+                return R;
+            }
+        }
+    }
+
+    public static int[] partition(int[] arr,int L,int R) {
+       int l = L; //l 和 r 代表边界
+       int r = R;
+       while (L < r) {
+           if (arr[L] < arr[R]) {
+               swap(arr,l++,L++);
+           }else if (arr[L] > arr[R]) {
+               swap(arr,L,--r);
+           }else {
+               L++;
+           }
+       }
+       swap(arr,L,R);
+       return new int[] {l - 1,r + 1};
+    }
+    //交换
+    public static void swap(int[] arr,int i,int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+    //插入排序
+    public static void insertSort(int[] arr,int L,int R) {
+        for (int i = L + 1; i <= R; i++) {
+            for (int j = i - 1; j >= L && arr[j] > arr[j + 1]; j--) {
+                swap(arr,j,j + 1);
+            }
+        }
+    }
+    //非递归
+    public static void quickSort2(int[] arr,int L,int R) {
+        Stack<Integer> stack = new Stack<>();
+        int[] p = partition(arr,L,R);
+        if (p[0] > L + 1) {
+            stack.push(L);
+            stack.push(p[0]);
+        }
+        if (p[1] < R - 1) {
+            stack.push(p[1]);
+            stack.push(R);
+        }
+        while (!stack.isEmpty()) {
+            R = stack.pop();
+            L = stack.pop();
+            p = partition(arr,L,R);
+            if (p[0] > L + 1) {
+                stack.push(L);
+                stack.push(p[0]);
+            }
+            if (p[1] < R - 1) {
+                stack.push(p[1]);
+                stack.push(R);
+            }
+        }
+    }
+}
+
