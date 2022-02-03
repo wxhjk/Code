@@ -1,0 +1,22 @@
+ public static int BF(String str,String sub) {
+        if (str == null || sub == null) return -1;
+        int strLen = str.length();
+        int subLen = sub.length();
+        if (subLen == 0 || strLen == 0) return -1;
+        int i = 0;
+        int j = 0;
+        while (i < strLen && j < subLen) {
+            if (str.charAt(i) == sub.charAt(j)) {
+                i++;
+                j++;
+            }else {
+                i = i - j + 1;
+                j = 0;
+            }
+        }
+        if (j >= subLen) {
+            return i - j;
+        }else {
+            return -1;
+        }
+    }
