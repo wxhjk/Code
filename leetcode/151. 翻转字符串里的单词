@@ -41,6 +41,47 @@ class Solution {
     }
 }
 
+class Solution {
+    public String reverseWords(String s) {
+        String str1 = removeSpace(s);
+        char[] str2 = str1.toCharArray();
+        reverse(str2,0,str1.length() - 1);
+        reverseAllWord(str2);
+        return new String (str2);
+    }
+    public String removeSpace(String s) {
+        char[] ss = s.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        int j = ss.length - 1;
+        while (i < ss.length - 1 && ss[i] == ' ') i++;
+        while (j >= 0 && ss[j] == ' ' ) j--;
+        for (; i <= j; i++) {
+            if (ss[i] != ' ' || sb.charAt(sb.length() - 1) != ' ') {
+                sb.append(ss[i]);
+            }
+        }
+        return sb.toString();
+    }
+    public void reverse(char[] str,int l,int r) {
+        while (l < r) {
+            char tmp = str[l];
+            str[l] = str[r];
+            str[r] = tmp;
+            r--;
+            l++;
+        }
+    }
+    public void reverseAllWord(char[] s) {
+        int x = 0;
+        for (int i = 0; i <= s.length; i++) {
+            if (i == s.length || s[i] == ' ') {
+                reverse(s,x,i - 1);
+                x = i + 1;
+            }
+        }
+    }
+
 //一次遍历完成
 class Solution {
     public String reverseWords(String s) {
