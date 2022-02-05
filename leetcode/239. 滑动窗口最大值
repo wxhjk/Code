@@ -1,0 +1,46 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        Deque<Integer> deque = new LinkedList<>();
+        int[] arr = new int[n - k + 1]; 
+        for (int i = 0; i < n; i++) {
+            while (!deque.isEmpty() && nums[i] >= nums[deque.peekLast()]) {
+                deque.pollLast();
+            }
+            deque.offerLast(i);
+            while (deque.peekFirst() < i - k + 1) {
+                deque.pollFirst();
+            }
+            if (i + 1 >= k) {
+                arr[i - k + 1] = nums[deque.peekFirst()];
+            } 
+        }
+        return arr;
+    }
+}
+
+
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+        int[] max = new int[n - k + 1]; 
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>(new Comparator<int[]>() {
+            public int compare(int[] arr1,int[] arr2) {
+                return arr1[0] != arr2[0] ? arr2[0] - arr1[0] : arr2[1] - arr1[1]; 
+            }
+        });
+        for (int i = 0; i < k; i++) {
+            pq.offer(new int[]{nums[i],i});
+        }
+        max[0] = pq.peek()[0];
+        for (int i = k; i < n; i++) {
+            pq.offer(new int[]{nums[i],i});
+            while (pq.peek()[1] < i - k + 1) {
+                pq.poll();
+            }
+            max[i - k + 1] = pq.peek()[0];
+        }
+        return max;
+    }
+}
