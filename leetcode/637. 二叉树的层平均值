@@ -1,0 +1,61 @@
+//Dfs
+class Solution {
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        List<Integer> count = new ArrayList<>();
+        List<Double> sum = new ArrayList<>();
+        Dfs(root,0,count,sum);
+        int size = sum.size();
+        for (int i = 0; i < size; i++) {
+            list.add(sum.get(i) / count.get(i));
+        }
+        return list;
+    }
+    public void Dfs(TreeNode root,int deep,List<Integer> count,List<Double> sum) {
+        if (root == null) {
+            return;
+        }
+        if (sum.size() > deep) {
+            sum.set(deep,sum.get(deep) + root.val);
+            count.set(deep,count.get(deep) + 1);
+        }else {
+            sum.add(1.0 * root.val);
+            count.add(1);
+        }
+        Dfs(root.left,deep + 1,count,sum);
+        Dfs(root.right,deep + 1,count,sum);
+    }
+}
+
+
+
+//Bfs
+class Solution {
+    public List<Double> averageOfLevels(TreeNode root) {
+        List<Double> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        Queue<TreeNode> qe = new LinkedList<>();
+        qe.offer(root);
+        while (!qe.isEmpty()) {
+            int size = qe.size();
+            Double sum = 0.0;
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = qe.poll();
+                sum += cur.val;
+                if (cur.left != null) {
+                    qe.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    qe.offer(cur.right);
+                }
+            }
+            list.add(sum / size);
+        }
+        return list;
+    }
+}
