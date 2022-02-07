@@ -1,0 +1,15 @@
+public class Solution extends VersionControl {
+    public int firstBadVersion(int n) {
+        int L = 0;
+        int R = n;
+        while (L <= R) {
+            int mid = L + ((R - L) >> 1);
+            if (isBadVersion(mid)) {
+                R = mid - 1;
+            }else {
+                L = mid + 1;
+            }
+        }
+        return L;
+    }
+}
