@@ -1,0 +1,48 @@
+
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        Queue<TreeNode> qe = new LinkedList<>();
+        qe.offer(root);
+        while (!qe.isEmpty()) {
+            int size = qe.size();
+            List<Integer> list2 = new ArrayList<>();
+            while (size > 0) {
+                TreeNode cur = qe.poll();
+                if (cur.left != null) {
+                    qe.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    qe.offer(cur.right);
+                }
+                list2.add(cur.val);
+                size--;
+            }
+            list.add(0,list2);
+        }
+        return list;
+    }
+}
+
+//Dfs
+class Solution {
+    List<List<Integer>> list = new ArrayList<>();
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        Dfs(root,1);
+        return list;
+    }
+    public void Dfs(TreeNode root,int deep) {
+        if (root == null) {
+            return;
+        }
+        if (list.size() < deep) {
+            list.add(0,new ArrayList<>());
+        }
+        list.get(list.size() - deep).add(root.val);
+        Dfs(root.left,deep + 1);
+        Dfs(root.right,deep + 1);
+    }
+}
