@@ -1,0 +1,38 @@
+class Solution {
+    public int maxDepth(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int maxD = 0;
+        for (Node cur : root.children) {
+            int max = maxDepth(cur);
+            maxD = Math.max(max,maxD);
+        }
+        return maxD + 1;
+    }
+}
+
+
+
+class Solution {
+    public int maxDepth(Node root) {
+        if (root == null) {
+            return 0;
+        }
+        int deep = 0;
+        Queue<Node> qe = new LinkedList<>();
+        qe.offer(root);
+        while (!qe.isEmpty()) {
+            int size = qe.size();
+            deep++;
+            while (size > 0) {
+                Node cur = qe.poll();
+                for (Node node : cur.children) {
+                    qe.offer(node);
+                }
+                size--;
+            }
+        }
+        return deep;
+    }
+}
