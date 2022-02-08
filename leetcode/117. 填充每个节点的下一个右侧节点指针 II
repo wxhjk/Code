@@ -1,0 +1,56 @@
+//空间复杂度O（1）
+class Solution {
+    public Node connect(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Node head = root;
+        while (head != null) {
+            Node cur = head;
+            Node dm = new Node(0);
+            Node prev = dm;
+            while (cur != null) {
+                if (cur.left != null) {
+                    prev.next = cur.left;
+                    prev = cur.left;
+                }
+                if (cur.right != null) {
+                    prev.next = cur.right;
+                    prev = cur.right;
+                }
+                cur = cur.next;
+            }
+            head = dm.next;
+        }
+        return root;
+    }
+}
+
+class Solution {
+    public Node connect(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Queue<Node> qe = new LinkedList<>();
+        qe.offer(root);
+        while (!qe.isEmpty()) {
+            int size = qe.size();
+            Node prev = null;
+            while (size > 0) {
+                Node cur = qe.poll();
+                if (cur.left != null) {
+                    qe.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    qe.offer(cur.right);
+                }
+                if (prev != null) {
+                    prev.next = cur;
+                }
+                prev = cur;
+                size--;
+            }
+        }
+        return root;
+    }
+}
