@@ -1,0 +1,51 @@
+//Dfs递归
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        preorder(root);
+        return root;
+    }
+    public void preorder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        swap(root);
+        preorder(root.left);
+        preorder(root.right);
+    }
+    public void swap (TreeNode root) {
+        TreeNode tmp = root.left;
+        root.left = root.right;
+        root.right = tmp;
+    }
+}
+
+//Bfs
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        Queue<TreeNode> qe = new LinkedList<>();
+        qe.offer(root);
+        while (!qe.isEmpty()) {
+            int size = qe.size();
+            while (size > 0) {
+                TreeNode cur = qe.poll();
+                swap(cur);
+                if (cur.left != null) {
+                    qe.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    qe.offer(cur.right);
+                }
+                size--;
+            }
+        }
+        return root;
+    }
+    public void swap(TreeNode root) {
+        TreeNode tmp = root.left;
+        root.left = root.right;
+        root.right = tmp;
+    }
+}
