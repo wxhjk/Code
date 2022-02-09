@@ -1,0 +1,30 @@
+class Solution {
+    public int countCharacters(String[] words, String chars) {
+        int sum = 0;
+        for (int i = 0; i < words.length; i++) {
+            int[] arr = count(chars);
+            if(contain(arr,words[i])) {
+                sum += words[i].length();
+            }
+        }
+        return sum;
+    }
+    public int[] count(String chars) {
+        int[] arr = new int[26];
+        char[] cha = chars.toCharArray();
+        for (char ch : cha) {
+            arr[ch - 'a']++;
+        }
+        return arr;
+    }
+    public boolean contain(int[] arr,String words) {
+        char[] str = words.toCharArray();
+        for (char ch : str) {
+            arr[ch - 'a']--;
+            if(arr[ch - 'a'] < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
