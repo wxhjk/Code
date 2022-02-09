@@ -1,0 +1,25 @@
+class Solution {
+    public List<String> simplifiedFractions(int n) {
+        List<String> list = new ArrayList<>();
+        if (n == 1) {
+            return list;
+        }
+        for (int j = 2; j <= n; j++) {
+            for (int  i = 1;i < j; i++) {
+                if (divisor(i,j) == 1) {
+                    list.add(i + "/" + j);
+                }
+            }
+        }
+        return list;
+    }
+    public int divisor(int a,int b) {
+        int c = a % b;
+        while (c > 1) {
+            a = b;
+            b = c;
+            c = a % b;
+        }
+        return c;
+    }
+}
