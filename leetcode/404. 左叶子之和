@@ -1,0 +1,42 @@
+//递归
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int nums = 0;
+        if (root.left != null && root.left.left == null && root.left.right == null) {
+            nums = root.left.val;
+        }
+        return sumOfLeftLeaves(root.left) +sumOfLeftLeaves(root.right) + nums; 
+    }
+}
+
+//迭代
+class Solution {
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<TreeNode> qe = new LinkedList<>();
+        int sum = 0;
+        qe.offer(root);
+        while (!qe.isEmpty()) {
+            int size = qe.size();
+            while (size > 0) {
+                TreeNode cur = qe.poll();
+                if (cur.left != null) {
+                    if (cur.left.left == null && cur.left.right == null) {
+                        sum += cur.left.val;
+                    }
+                    qe.offer(cur.left);
+                }
+                if (cur.right != null) {
+                    qe.offer(cur.right);
+                }
+                size--;
+            }
+        }
+        return sum;
+    }
+}
