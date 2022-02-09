@@ -1,0 +1,60 @@
+//递归
+class Solution {
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return countNodes(root.left) + countNodes(root.right) + 1;
+    }
+}
+
+//迭代
+class Solution {
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<TreeNode> qe = new LinkedList<>();
+        qe.offer(root);
+        int sum = 1;
+        while (!qe.isEmpty()) {
+            int size = qe.size();
+            while (size > 0) {
+                TreeNode cur = qe.poll();
+                if (cur.left != null) {
+                    qe.offer(cur.left);
+                    sum++;
+                }
+                if (cur.right != null) {
+                    qe.offer(cur.right);
+                    sum++;
+                }
+                size--;
+            }
+        }
+        return sum;
+    }
+}
+//利用完全二叉树进行位运算
+class Solution {
+    public int countNodes(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftDeep = getDeep(root.left);
+        int rightDeep = getDeep(root.right);
+        if (leftDeep == rightDeep) {
+            return (1 << leftDeep) + countNodes(root.right);
+        }else {
+            return (1 << rightDeep) + countNodes(root.left);
+        }
+    }
+    public int getDeep(TreeNode root) {
+        int deep = 0;
+        while (root != null) {
+            deep++;
+            root = root.left;
+        }
+        return deep;
+    } 
+}
