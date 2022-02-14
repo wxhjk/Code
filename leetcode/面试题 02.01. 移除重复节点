@@ -1,0 +1,43 @@
+//原地删除
+class Solution {
+    public ListNode removeDuplicateNodes(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        Set<Integer> set = new HashSet<>();
+        ListNode pos = head;
+        set.add(head.val);
+        while (pos.next != null) {
+           ListNode cur = pos.next;
+           if (!set.contains(cur.val)) {
+               set.add(cur.val);
+               pos = pos.next;
+           }else {
+               pos.next = pos.next.next;
+           }
+        }
+        pos.next = null;
+        return head;
+    }
+}
+
+class Solution {
+    public ListNode removeDuplicateNodes(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode cur = head;
+        while (cur != null) {
+            ListNode pos = cur;
+            while (pos.next != null) {
+                if (pos.next.val == cur.val) {
+                    pos.next = pos.next.next;
+                }else {
+                    pos = pos.next;
+                }
+            }
+            cur = cur.next;
+        }
+        return head;
+    }
+}
