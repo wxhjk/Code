@@ -1,0 +1,36 @@
+class Solution {
+    public List<String> buildArray(int[] target, int n) {
+        List<String> list = new ArrayList<>();
+        for (int num = 1,index = 0; num <= n && index < target.length; num++) {
+            if (num == target[index]) {
+                list.add("Push");
+                index++;
+            }else {
+                list.add("Push");
+                list.add("Pop");
+            }
+        }
+        return list;
+    }
+}
+
+class Solution {
+    public List<String> buildArray(int[] target, int n) {
+        List<String> list = new ArrayList<>();
+        Stack<Integer> st = new Stack<>();
+        int j = 0;
+        for (int i = 1; i <= n; i++) {
+            if (j < target.length) {
+                list.add("Push");
+                st.push(i);
+            }
+            if (j < target.length && st.peek() != target[j]) {
+                list.add("Pop");
+                st.pop();
+                j--;
+            }
+            j++;
+        }
+        return list;
+    }
+}
