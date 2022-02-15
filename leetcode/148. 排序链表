@@ -1,0 +1,57 @@
+class Solution {
+    public ListNode sortList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode cur = head;
+        while (cur.next != null) {
+            cur = cur.next;
+        }
+        return mergeSort(head,cur);
+    }
+    public ListNode mergeSort(ListNode head, ListNode tail) {
+        if (head == null) {
+            return head;
+        }
+        if (head == tail) {
+            head.next = null;
+            return head;
+        }
+        ListNode mid = getMid(head,tail);
+        ListNode list2 = mergeSort(mid.next,tail);
+        ListNode list1 = mergeSort(head,mid);
+        return merge(list1,list2);
+    }
+    public ListNode getMid(ListNode head,ListNode tail) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != tail && fast.next != tail) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+    public ListNode merge(ListNode list1,ListNode list2) {
+        ListNode l = list1;
+        ListNode r = list2;
+        ListNode dummy = new ListNode(-1);
+        ListNode cur = dummy;
+        while (l != null && r != null) {
+            if (l.val <= r.val) {
+                cur.next = l;
+                l = l.next;
+            }else {
+                cur.next = r;
+                r = r.next;
+            }
+            cur = cur.next;
+        }
+        if (l != null) {
+            cur.next = l;
+        }
+        if (r != null) {
+            cur.next = r;
+        }
+        return dummy.next;
+    }
+}
