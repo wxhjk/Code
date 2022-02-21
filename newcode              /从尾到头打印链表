@@ -1,0 +1,14 @@
+import java.util.ArrayList;
+public class Solution {
+    ArrayList<Integer> list = new ArrayList<>();
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        print(listNode);
+        return list;
+    }
+    public void print(ListNode listNode) {
+        if (listNode == null) {
+            return;
+        }
+        print(listNode.next);
+        list.add(listNode.val);
+    }
