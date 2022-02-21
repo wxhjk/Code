@@ -1,0 +1,23 @@
+import java.util.*;
+public class Main {
+   public static void main(String[] args) {
+      Set<Character> set = new HashSet<>();
+      Scanner sc = new Scanner(System.in);
+      String stre = sc.nextLine();
+      String stra = sc.nextLine();
+      for (char ch : stra.toCharArray()) {
+          set.add(ch);
+      }
+      for (char ch : stre.toCharArray()) {
+          if (!set.contains(ch)) {
+              set.add(ch);
+             if (ch >= 'a' && ch <= 'z') {
+               System.out.print((char)(ch - 32));
+                 set.add((char)(ch - 32));
+             }else {
+               System.out.print(ch);
+             }
+          }
+      }
+   }
+}
