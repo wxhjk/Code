@@ -1,0 +1,124 @@
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node(int val) {
+        this.val = val;
+    }
+}
+class BinarySearchTree{
+    Node root = null;
+    public Node search(int key) {
+        if (root == null) {
+            return null;
+        }
+        Node cur = root;
+        while (cur != null) {
+            if (cur.val == key) {
+                return cur;
+            }else if (cur.val < key) {
+                cur = cur.right;
+            }else {
+                cur = cur.left;
+            }
+        }
+        return null;
+    }
+    public boolean Insert(int key) {
+        if (root == null) {
+            root = new Node(key);
+        }
+        Node cur = root;
+        Node prev = null;
+        while (cur != null) {
+            prev = cur;
+            if (cur.val == key) {
+                return false;
+            }else if (cur.val < key) {
+                cur = cur.right;
+            }else {
+                cur = cur.left;
+            }
+        }
+        if (prev.val > key) {
+            prev.left = new Node(key);
+        }else {
+            prev.right = new Node(key);
+        }
+        return true;
+    }
+    public void remove(int key) {
+        Node cur = root;
+        Node pre = null;
+        while (cur != null) {
+            if (cur.val == key) {
+                removeNode(pre,cur);
+                break;
+            }else if (cur.val < key) {
+                pre = cur;
+                cur = cur.right;
+            }else {
+                pre = cur;
+                cur = cur.left;
+            }
+        }
+    }
+    public void removeNode(Node pre,Node cur) {
+        if (cur.left == null) {
+            if (cur == root) {
+                cur = cur.right;
+            }else if (cur == pre.left) {
+                pre.left = cur.right;
+            }else {
+                pre.right = cur.right;
+            }
+        }else if (cur.right == null) {
+            if (cur == root) {
+                cur = cur.left;
+            }else if (cur == pre.left) {
+                pre.left = cur.left;
+            }else {
+                pre.right = cur.left;
+            }
+        }else {
+            Node node = cur.right;
+            Node node2 = cur;
+            while (node.left != null) {
+                node2 = node;
+                node = node.left;
+            }
+            cur.val = node.val;
+            if (node2.left == node) {
+                node2.left = node.right;
+            }else {
+                node2.right = node.right;
+            }
+        }
+    }
+    public void inOrder(Node root) {
+        if (root == null) return;
+        inOrder(root.left);
+        System.out.print(root.val + " ");
+        inOrder(root.right);
+    }
+    public void preOrder(Node root) {
+        if (root == null) return;
+        System.out.print(root.val + " ");
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+}
+public class TextDemo {
+    public static void main(String[] args) {
+        BinarySearchTree binarySearchTree = new BinarySearchTree();
+        int[] arr = {5,7,8,4,3,1,2,9,0,6};
+        for (int i = 0; i < arr.length; i++) {
+            binarySearchTree.Insert(arr[i]);
+        }
+        binarySearchTree.inOrder(binarySearchTree.root);
+        binarySearchTree.remove(4);
+        System.out.println();
+        binarySearchTree.inOrder(binarySearchTree.root);
+    }
+}
+
