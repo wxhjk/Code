@@ -1,0 +1,28 @@
+import java.util.Stack;
+
+public class Solution {
+    Stack<Integer> st1 = new Stack<>();
+    Stack<Integer> st2 = new Stack<>();
+    
+    public void push(int node) {
+        st1.push(node);
+        if(st2.isEmpty()) {
+            st2.push(node);
+        }else {
+            st2.push(node < st2.peek() ? node : st2.peek());
+        }
+    }
+    
+    public void pop() {
+        st2.pop();
+        st1.pop();
+    }
+    
+    public int top() {
+        return st1.peek();
+    }
+    
+    public int min() {
+        return st2.peek();
+    }
+}
