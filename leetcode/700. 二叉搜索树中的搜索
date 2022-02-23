@@ -1,3 +1,4 @@
+递归
 class Solution {
     public TreeNode searchBST(TreeNode root, int val) {
         if (root == null) {
@@ -7,5 +8,21 @@ class Solution {
             return root;
         }
         return root.val > val ? searchBST(root.left,val) : searchBST(root.right,val);
+    }
+}
+
+迭代
+class Solution {
+    public TreeNode searchBST(TreeNode root, int val) {
+        while (root != null) {
+            if (root.val > val) {
+                root = root.left;
+            }else if (root.val < val) {
+                root = root.right;
+            }else {
+                break;
+            }
+        }
+        return root;
     }
 }
