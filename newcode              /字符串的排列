@@ -1,0 +1,32 @@
+import java.util.*;
+public class Solution {
+    public ArrayList<String> Permutation(String str) {
+       ArrayList<String> result = new ArrayList<>();
+       if (str != null && str.length() > 0) {
+            func(result,0,str.toCharArray());
+           Collections.sort(result);
+       }
+        return result;
+    }
+    public void func(ArrayList<String> result,int start,char[] str) {
+        if (start == str.length - 1) {
+            if (!isExist(result,str)) {
+                result.add(new String(str));
+            }
+            return;
+        }
+        for (int i = start; i < str.length; i++) {
+            swap(str,i,start);
+            func(result,start + 1,str);
+            swap(str,i,start);
+        }
+    } 
+    public void swap(char[] str,int i, int j) {
+        char tmp = str[i];
+        str[i] = str[j];
+        str[j] = tmp;
+    }
+    public boolean isExist(ArrayList<String> result,char[] str) {
+        return result.contains(String.valueOf(str));
+    }
+}
