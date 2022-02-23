@@ -1,0 +1,45 @@
+递归
+
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        if (root.left == null && root.right == null) {
+            return targetSum == root.val;
+        }
+        return hasPathSum(root.left,targetSum - root.val) ||hasPathSum(root.right,targetSum - root.val);
+    }
+}
+
+迭代
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+        Queue<TreeNode> qe1 = new LinkedList<>();
+        Queue<Integer> qe2 = new LinkedList<>();
+        qe1.offer(root);
+        qe2.offer(root.val);
+        while (!qe1.isEmpty()) {
+            TreeNode cur = qe1.poll();
+            int tmp = qe2.poll();
+            if (cur.left == null && cur.right == null) {
+                if (tmp == targetSum) {
+                    return true;
+                }
+                continue;
+            }
+            if (cur.left != null) {
+                qe1.offer(cur.left);
+                qe2.offer(cur.left.val + tmp);
+            }
+            if (cur.right != null) {
+                qe1.offer(cur.right);
+                qe2.offer(cur.right.val + tmp);
+            }
+        }
+        return false;
+    }
+}
