@@ -1,0 +1,41 @@
+class Solution {
+    int d = Integer.MAX_VALUE;
+    TreeNode pre = null
+    public int getMinimumDifference(TreeNode root) {
+        inorder(root);
+        return d;
+    }
+    public void inorder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left);
+        if (pre != null) {
+            d = Math.min(d,root.val - pre.val);
+        }
+        pre = root;
+        inorder(root.right);
+    }
+}
+
+
+class Solution {
+    public int getMinimumDifference(TreeNode root) {
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode pre = null;
+        int d = Integer.MAX_VALUE;
+        while (root != null || !st.isEmpty()) {
+            while (root != null) {
+                st.push(root);
+                root = root.left;
+            }
+            TreeNode cur = st.pop();
+            if (pre != null) {
+                d = Math.min(d,cur.val - pre.val);
+            }
+            pre = cur;
+            root = cur.right;
+        }
+        return d;
+    }
+}
