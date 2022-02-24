@@ -1,4 +1,21 @@
 class Solution {
+    long pre = Long.MIN_VALUE;
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (!isValidBST(root.left)) {
+            return false;
+        }
+        if (root.val <= pre) {
+            return false;
+        }
+        pre = root.val;
+        return isValidBST(root.right);
+    }
+}
+
+class Solution {
     public boolean isValidBST(TreeNode root) {
         return isBST(root,Long.MIN_VALUE,Long.MAX_VALUE);
     }
@@ -10,5 +27,25 @@ class Solution {
             return false;
         } 
         return isBST(root.left,lower,root.val) && isBST(root.right,root.val,upper);
+    }
+}
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        long pre = Long.MIN_VALUE;
+        Stack<TreeNode> st = new Stack<>();
+        while (root != null || !st.isEmpty()) {
+            while (root != null) {
+                st.push(root);
+                root = root.left;
+            }
+            TreeNode cur = st.pop();
+            if (cur.val <= pre) {
+                return false;
+            }
+            pre = cur.val;
+            root = cur.right;
+        }
+        return true;
     }
 }
