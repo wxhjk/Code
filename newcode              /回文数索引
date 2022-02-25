@@ -1,0 +1,39 @@
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+        while (num > 0) {
+            StringBuilder sb = new StringBuilder(sc.next());
+            int[] p1 = new int[1];
+            int[] p2 = new int[1];
+            if (isp(sb,p1,p2)) {
+                System.out.println(-1);
+            }else {
+                int a = p1[0];
+                int b = p2[0];
+                sb.deleteCharAt(a);
+                if (isp(sb,p1,p2)) {
+                    System.out.println(a);
+                }else {
+                    System.out.println(b);
+                }
+            }
+            num--;
+        }
+    }
+    public static boolean isp(StringBuilder str,int[] p1,int[] p2) {
+        int l = 0;
+        int r = str.length() - 1;
+        while (l <= r) {
+            if (str.charAt(l) != str.charAt(r)) {
+                p1[0] = l;
+                p2[0] = r;
+                return false;
+            }
+            l++;
+            r--;
+        }
+        return true;
+    }
+}
