@@ -1,0 +1,22 @@
+import java.util.*;
+
+public class Solution {
+    public String PrintMinNumber(int [] numbers) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int x : numbers) {
+            list.add(x);
+        }
+        Collections.sort(list,new Comparator<Integer>(){
+            public int compare(Integer x,Integer y) {
+                String xy = x + "" + y;
+                String yx = y + "" + x;
+                return xy.compareTo(yx);
+            }
+        });
+        StringBuilder sb = new StringBuilder();
+        for (int x : list) {
+            sb.append(x + "");
+        }
+        return sb.toString();
+    }
+}
