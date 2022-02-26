@@ -1,0 +1,86 @@
+class HashBuck {
+    class Node {
+        public int key;
+        public int val;
+        public Node next;
+        public Node(int key, int val) {
+            this.key = key;
+            this.val = val;
+        }
+    }
+    public Node[] array;
+    public int useSize;
+    public HashBuck() {
+        array = new Node[10];
+    }
+    public static final double DEFAULT_LOAD_FACTOR = 0.75;
+
+    public void put (int key, int val) {
+        //1.找到key所在的位置
+
+        int index = key % this.array.length;
+
+        //2.遍历下标的链表，看是不是有相同的key，如果有需要更新
+        Node cur = array[index];
+        while (cur != null) {
+            if (cur.key == key) {
+                cur.val = val; //更新val
+                return;
+            }
+            cur = cur.next;
+        }
+        //3.头插法
+        Node node = new Node(key,val);
+        node.next = array[index];
+        array[index] = node;
+        this.useSize++;
+        //4.检查当前的负载因子
+        if (loadFactor() >= DEFAULT_LOAD_FACTOR) {
+            resize();
+        }
+    }
+    private void resize() {
+        Node[] newArray = new Node[array.length * 2];
+        for (int i = 0; i < array.length; i++) {
+            Node cur = array[i];
+            while (cur != null) {
+                int index = cur.key % newArray.length;
+                Node curNext = cur.next; //头插
+                cur.next = newArray[index];
+                newArray[index] = cur;
+                cur = curNext;
+            }
+        }
+        array = newArray;
+    }
+
+    private double loadFactor() {
+        return 1.0 * useSize / array.length;
+    }
+
+    public int get(int key) {
+        int index = key % array.length;
+        Node cur = array[index];
+        while (cur != null) {
+            if (cur.key == key) {
+                return cur.val;
+            }
+            cur = cur.next;
+        }
+        return -1;
+    }
+}
+public class TextDemo2 {
+    public static void main(String[] args) {
+        HashBuck hb = new HashBuck();
+        hb.put(1,1);
+        hb.put(12,12);
+        hb.put(3,3);
+        hb.put(6,6);
+        hb.put(7,7);
+        hb.put(17,7);
+        hb.put(18,18);
+        hb.put(8,8);
+        System.out.println(hb.get(6));
+    }
+}
