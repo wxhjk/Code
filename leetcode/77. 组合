@@ -1,0 +1,19 @@
+class Solution {
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> list = new ArrayList<>();
+    public List<List<Integer>> combine(int n, int k) {
+        backTracking(n,k,1);
+        return result;
+    }
+    public void backTracking(int n, int k,int start) {
+        if (list.size() == k) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = start; i <= n - (k - list.size()) + 1; i++) {
+            list.add(i);
+            backTracking(n,k,i + 1);
+            list.remove(list.size() - 1);
+        }
+    }
+}
