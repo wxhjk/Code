@@ -12,10 +12,7 @@ class Solution {
             return;
         }
         
-        for (int i = start; i < candidates.length; i++) {
-            if (sum + candidates[i] > target) {
-                break;
-            }
+        for (int i = start; i < candidates.length && sum + candidates[i] <= target; i++) {
             list.add(candidates[i]);
             backTracking(candidates,target,sum + candidates[i],i);
             list.remove(list.size() - 1);
