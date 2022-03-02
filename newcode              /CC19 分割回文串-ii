@@ -33,3 +33,43 @@ public class Solution {
         return true;
     }
 }
+
+
+
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param s string字符串 
+     * @return int整型
+     */
+    public int minCut (String s) {
+        int len = s.length();
+        int[] dp = new int[len + 1];
+        boolean[][] f = new boolean[len][len];
+        build(s,f,len);
+        for (int i = 0;i <= len; i++) {
+            dp[i] = i - 1;
+        }
+        for (int i = 1; i <= len; i++) {
+            for (int j = 0;j < i; j++) {
+                if (f[j][i - 1]) {
+                    dp[i] = Math.min(dp[i],dp[j] + 1);
+                }
+            }
+        }
+        return dp[len];
+    }
+    public void build(String s,boolean[][] f,int n) {
+       for (int i = 0; i < n; i++) {
+           Arrays.fill(f[i],true);
+       }
+       for (int i = n - 1; i >= 0; i--) {
+           for (int j = i + 1; j < n; j++) {
+               f[i][j] = (s.charAt(i) == s.charAt(j)) && f[i + 1][j - 1];
+           }
+       }
+    }
+}
