@@ -1,0 +1,31 @@
+class Solution {
+    List<List<String>> result = new ArrayList<>();
+    List<String> list = new ArrayList<>();
+    public List<List<String>> partition(String s) {
+       int n = s.length();
+       boolean[][] f = new boolean[n][n];
+       for (int i = 0; i < n; i++) {
+           Arrays.fill(f[i],true);
+       }
+       for (int i = n - 1; i >= 0; i--) {
+           for (int j = i + 1; j < n; j++) {
+               f[i][j] = (s.charAt(i) == s.charAt(j)) && f[i + 1][j - 1];
+           }
+       }
+       dfs(s,0,f);
+       return result;
+    }
+    public void dfs(String s,int start,boolean[][] f) {
+        if (start >= s.length()) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = start; i < s.length(); i++) {
+            if (f[start][i]) {
+                list.add(s.substring(start,i + 1));
+                dfs(s,i + 1,f);
+                list.remove(list.size() - 1);
+            }
+        }
+    }
+}
