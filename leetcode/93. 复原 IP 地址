@@ -1,0 +1,93 @@
+class Solution {
+    List<String> result = new ArrayList<>();
+    public List<String> restoreIpAddresses(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        back(sb,0,0);
+        return result;
+    }
+    public void back(StringBuilder s,int start,int p) {
+        if (p == 3) {
+            if (ip(s,start,s.length() - 1)) {
+                result.add(s.toString());
+            }
+            return;
+        }
+        for (int i = start; i < s.length(); i++) {
+            if (ip(s,start,i)) {
+                s.insert(i + 1,".");
+                back(s,i + 2,p + 1);
+                s.deleteCharAt(i + 1);
+            }else {
+                break;
+            }
+        }
+    }
+    public boolean ip(StringBuilder s,int i,int j) {
+        if (i > j || j - i >= 4) {
+            return false;
+        }
+        if (s.charAt(i) == '0' && i != j) {
+            return false;
+        }
+        int num = 0;
+        while (i <= j) {
+            if (s.charAt(i) > '9' || s.charAt(i) < '0') {
+                return false;
+            }
+            num = num * 10 + s.charAt(i) - '0';
+            if (num > 255) {
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+}
+
+
+
+
+class Solution {
+    List<String> result = new ArrayList<>();
+    public List<String> restoreIpAddresses(String s) {
+        back(s,0,0);
+        return result;
+    }
+    public void back(String s,int start,int p) {
+        if (p == 3) {
+            if (ip(s,start,s.length() - 1)) {
+                result.add(s);
+            }
+            return;
+        }
+        for (int i = start; i < s.length(); i++) {
+            if (ip(s,start,i)) {
+                p++;
+                s = s.substring(0,i + 1) + "." + s.substring(i + 1);
+                back(s,i + 2,p);
+                p--;
+                s = s.substring(0,i + 1) + s.substring(i + 2);
+            }
+        }
+    }
+    public boolean ip(String s,int i,int j) {
+        if (i > j) {
+            return false;
+        }
+        if (s.charAt(i) == '0' && i != j) {
+            return false;
+        }
+        int num = 0;
+        while (i <= j) {
+            if (s.charAt(i) > '9' || s.charAt(i) < '0') {
+                return false;
+            }
+            num = num * 10 + s.charAt(i) - '0';
+            if (num > 255) {
+                return false;
+            }
+            i++;
+        }
+        return true;
+    }
+}
