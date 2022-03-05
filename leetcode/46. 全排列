@@ -1,0 +1,22 @@
+class Solution {
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> list = new ArrayList<>();
+    public List<List<Integer>> permute(int[] nums) {
+        back(nums);
+        return result;
+    }
+    public void back(int[] nums) {
+        if (list.size() == nums.length) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (list.contains(nums[i])) {
+                continue;
+            }
+            list.add(nums[i]);
+            back(nums);
+            list.remove(list.size() - 1);
+        }
+    }
+}
