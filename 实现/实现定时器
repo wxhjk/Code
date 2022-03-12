@@ -1,0 +1,71 @@
+public class java3_12_4 {
+    static class Task implements Comparable<Task> {
+        private Runnable command;
+        public long time;
+
+        public Task(Runnable command, long time) {
+            this.command = command;
+            this.time = System.currentTimeMillis() + time;
+        }
+
+        public void run() {
+            command.run();
+        }
+
+        @Override
+        public int compareTo(Task o) {
+            return (int)(this.time - o.time);
+        }
+    }
+
+    static class Timer {
+        private PriorityBlockingQueue<Task> qe = new PriorityBlockingQueue<>();
+
+        public Object locker = new Object();
+
+        public void schedule (Runnable command,long time) throws InterruptedException {
+            Task task = new Task(command,time);
+            qe.put(task);
+            // 每次插入新的任务都重新唤醒
+            synchronized (locker) {
+                locker.notify();
+            }
+        }
+
+        public Timer() {
+            Thread t1 = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        try {
+                            Task task = qe.take();
+                            long cur = System.currentTimeMillis();
+                            if (task.time > cur) {
+                                qe.put(task);
+                                // 根据时间差来等待
+                                synchronized (locker) {
+                                    locker.wait(task.time - cur);
+                                }
+                            }else {
+                                task.run();
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            break;
+                        }
+                    }
+                }
+            });
+            t1.start();
+        }
+    }
+    public static void main(String[] args) throws InterruptedException {
+        Timer timer = new Timer();
+        timer.schedule(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("hello");
+            }
+        },3000);
+    }
+}
