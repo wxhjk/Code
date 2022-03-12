@@ -1,0 +1,85 @@
+public class java3_12_3 {
+    static class MyBlockingQueue {
+        private int[] elem = new int[1000];
+        private int head = 0;
+        private int tail = 0;
+        private int size = 0;
+        private Object locker = new Object();
+
+        public void put (int val) throws InterruptedException {
+            synchronized (locker) {
+                // while 使用 if 万一有多个线程存在的时候,唤醒了多个线程,就有可能出现满了又放的情况
+                while (size == elem.length) {
+                    locker.wait();
+                }
+                elem[tail] = val;
+                tail++;
+                size++;
+                if (tail >= elem.length) {
+                    tail = 0;
+                }
+                // 用来唤醒 take 中的 wait
+                locker.notify();
+            }
+        }
+
+        public int take () throws InterruptedException {
+            int ret = 0;
+            synchronized (locker) {
+                if (size == 0) {
+                    locker.wait();
+                }
+                ret = elem[head];
+                head++;
+                size--;
+                if (head >= elem.length) {
+                    head = 0;
+                }
+                // 用来唤醒 put 中的 wait
+                locker.notify();
+            }
+            return ret;
+        }
+    }
+
+    public static void main(String[] args) {
+        MyBlockingQueue qe = new MyBlockingQueue();
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        int val = qe.take();
+                        System.out.println("取出元素 : " + val);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t1.start();
+
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 1000; i++) {
+                    System.out.println("产生元素 : " + i);
+                    try {
+                        qe.put(i);
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
