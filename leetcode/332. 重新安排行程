@@ -1,0 +1,66 @@
+class Solution {
+    Map<String,PriorityQueue<String>> map = new HashMap<>();
+    List<String> res = new LinkedList<>();
+    public List<String> findItinerary(List<List<String>> tickets) {
+        for (List<String> list : tickets) {
+            String str = list.get(0);
+            if (!map.containsKey(str)) {
+                map.put(str,new PriorityQueue<String>());
+            }
+            map.get(str).offer(list.get(1));
+        }
+        dfs("JFK");
+        Collections.reverse(res);
+        return res;
+    }
+    public void dfs(String cur) {
+        while (map.containsKey(cur) && map.get(cur).size() > 0) {
+            String str = map.get(cur).poll();
+            dfs(str);
+        }
+        res.add(cur);
+    }
+}
+
+class Solution {
+    Map<String,Map<String,Integer>> map = new HashMap<>();
+    List<String> result = new LinkedList<>();
+    public List<String> findItinerary(List<List<String>> tickets) {
+
+        for (List<String> list : tickets) {
+            Map<String,Integer> map2; 
+            if (map.containsKey(list.get(0))) {
+                map2 = map.get(list.get(0));
+                map2.put(list.get(1),map2.getOrDefault(list.get(1),0) + 1);
+            }else {
+                map2 = new TreeMap<>();
+                map2.put(list.get(1),1);
+            }
+            map.put(list.get(0),map2);
+        }
+
+        result.add("JFK");
+        back(tickets.size());
+        return new ArrayList<>(result);
+    }
+    public boolean back(int ticketsNums) {
+        if (result.size() == ticketsNums + 1) {
+            return true;
+        }
+
+        String last = result.get(result.size() - 1);
+        if (map.containsKey(last)) {
+            for (Map.Entry<String,Integer> target : map.get(last).entrySet()) {
+                int count = target.getValue();
+                if (count > 0) {
+                    result.add(target.getKey());
+                    target.setValue(count - 1);
+                    if (back(ticketsNums)) return true;
+                    result.remove(result.size() - 1);
+                    target.setValue(count);
+                }
+            }
+        }
+        return false;
+    }
+}
