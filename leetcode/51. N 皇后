@@ -1,0 +1,53 @@
+class Solution {
+    List<List<String>> res = new LinkedList<>();
+    public List<List<String>> solveNQueens(int n) {
+        char[][] arr = new char[n][n];
+        for (char[] c : arr) {
+            Arrays.fill(c,'.');
+        }
+        back(n,0,arr);
+        return res;
+    }
+    public void back(int n, int row,char[][] arr) {
+        if (row == n) {
+            res.add(toList(arr));
+            return;
+        }
+        for (int col = 0; col < n; col++) {
+            if (isL(arr,col,row,n)) {
+                arr[row][col] = 'Q';
+                back(n,row + 1,arr);
+                arr[row][col] = '.';
+            }
+        }
+    }
+
+    public boolean isL (char[][] arr,int col,int row,int n) {
+        for (int i = 0; i < row; i++) {
+            if (arr[i][col] == 'Q') {
+                return false;
+            }
+        }
+        
+        for (int i = row - 1,j = col - 1; i >= 0 && j >= 0; i--,j--) {
+            if (arr[i][j] == 'Q') {
+                return false;
+            }
+        }
+
+        for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--,j++) {
+            if (arr[i][j] == 'Q') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<String> toList(char[][] arr) {
+        List<String> list = new LinkedList<>();
+        for (char[] c : arr) {
+            list.add(String.copyValueOf(c));
+        }
+        return list;
+    }
+}
