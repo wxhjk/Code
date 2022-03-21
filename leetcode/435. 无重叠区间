@@ -1,0 +1,34 @@
+//右边界排序
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        Arrays.sort(intervals,(a,b) -> Integer.compare(a[1],b[1]));
+        // d 代表非重叠区间
+        int d = 1;
+        int right = intervals[0][1];
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] >= right) {
+                d++;
+                right = intervals[i][1];
+            }
+        }
+        return intervals.length - d;
+    }
+}
+
+// 左边界排序
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        Arrays.sort(intervals,(a,b) -> Integer.compare(a[0],b[0]));
+        // d 代表非重叠区间
+        int d = 1;
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] >= intervals[i - 1][1]) {
+                d++;
+            }else {
+                intervals[i][1] = Math.min(intervals[i][1],intervals[i - 1][1]);
+            }
+        }
+        // 总区间减去非重叠区间,就是重叠区间
+        return intervals.length - d;
+    }
+}
