@@ -1,0 +1,27 @@
+public class Solution {
+    public int StrToInt(String str) {
+        if (str == null || str.length() < 1) {
+            return 0;
+        }
+        int sum = 0;
+        boolean flag = true;
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (!(ch >= '0' && ch <= '9')) {
+                if (ch == '-') {
+                    flag = false;
+                }else if (ch == '+'){
+                    flag = true;
+                }else {
+                    return 0;
+                }
+            }else {
+                sum = sum * 10 + (ch - '0');
+            }
+        }
+        if (flag == false) {
+            sum = -sum;
+        }
+        return sum;
+    }
+}
