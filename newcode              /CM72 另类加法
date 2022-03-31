@@ -1,0 +1,12 @@
+ public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int A = sc.nextInt();
+        int B = sc.nextInt();
+        while (B != 0) {
+            int C = A ^ B;
+            int D = (A & B) << 1;
+            A = C;
+            B = D;
+        }
+        System.out.println(A);
+    }
