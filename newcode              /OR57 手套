@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class Gloves {
+    public int findMinimum(int n, int[] left, int[] right) {
+        int Gl = 0;
+        int Gr = 0;
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            if (left[i] == 0 || right[i] == 0) {
+                Gl += left[i] + right[i];
+            }else {
+                Gl += left[i];
+                if (left[i] < min) {
+                    min = left[i];
+                }
+            }
+        }
+        Gl = Gl - min + 1;
+        min = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            if (left[i] == 0 || right[i] == 0) {
+                Gr += left[i] + right[i];
+            }else {
+                Gr += right[i];
+                if (right[i] < min) {
+                    min = right[i];
+                }
+            }
+        }
+        Gr = Gr - min + 1;
+        return (Gl > Gr ? Gr + 1 : Gl + 1);
+    }
+}
