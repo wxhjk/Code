@@ -1,0 +1,27 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String allCard = sc.nextLine();
+        String[] card = allCard.split("-");
+        String[] p1 = card[0].split(" ");
+        String[] p2 = card[1].split(" ");
+        String p = "34567891JQKA2";
+        if (card[0].equals("joker JOKER")|| card[1].equals("joker JOKER")) {
+            System.out.println("joker JOKER");
+        }else if (p1.length == p2.length){
+            if (p.indexOf(card[0].substring(0,1)) > p.indexOf(card[1].substring(0,1))) {
+                System.out.println(card[0]);
+            }else {
+                System.out.println(card[1]);
+            }
+        }else if (p1.length == 4) {
+            System.out.println(card[0]);
+        }else if (p2.length == 4) {
+            System.out.println(card[1]);
+        }else {
+            System.out.println("ERROR");
+        }
+    }
+}
