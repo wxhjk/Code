@@ -1,0 +1,30 @@
+class Solution {
+    int res = 0;
+    public int minCameraCover(TreeNode root) {
+        // 0 未安装摄像头
+        // 1 安装摄像头
+        // 2 被摄像头覆盖
+        if (minCover(root) == 0) {
+            res++;
+        }
+        return res;
+    }
+
+    public int minCover(TreeNode root) {
+        // 空节点默认为2,避免在叶子节点上放置摄像头
+        if (root == null) {
+            return 2;
+        }
+        int left = minCover(root.left);
+        int right = minCover(root.right);
+        
+        if (left == 2 && right == 2) {
+            return 0;
+        }else if (left == 0 || right == 0) {
+            res++;
+            return 1;
+        }else {
+            return 2;
+        }
+    }
+}
