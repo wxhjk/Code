@@ -1,0 +1,23 @@
+class Solution {
+    public int rob(TreeNode root) {
+        int[] res = robRes(root);
+        return Math.max(res[0],res[1]);
+    }
+
+    // res[0] 表示不偷当前节点,偷当前节点的左右子节点
+    // 左右子节点也可分为偷和不偷
+    // res[1] 表示偷当前节点,不偷当前节点的子节点
+    public int[] robRes(TreeNode root) {
+        int[] res = new int[2];
+        if (root == null) {
+            return res;
+        }
+        int[] left = robRes(root.left);
+        int[] right = robRes(root.right);
+
+        res[0] = Math.max(left[0],left[1]) + Math.max(right[0],right[1]);
+        res[1] = root.val + left[0] + right[0];
+
+        return res;
+    }
+}
