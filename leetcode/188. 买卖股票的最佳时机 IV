@@ -1,0 +1,46 @@
+class Solution {
+    public int maxProfit(int k, int[] prices) {
+        int len = prices.length;
+        if (prices == null || len == 0) {
+            return 0;
+        }
+        int[][] dp = new int[len][k * 2 + 1];
+        for (int i = 1; i < k * 2 + 1; i += 2) {
+            dp[0][i] = -prices[0];
+        }
+        for (int i = 1; i < len; i++) {
+            for (int j = 0; j < k * 2 - 1; j +=2 ) {
+               dp[i][j + 1] = Math.max(dp[i - 1][j] - prices[i],dp[i - 1][j + 1]);
+               dp[i][j + 2] = Math.max(dp[i - 1][j + 1] + prices[i],dp[i - 1][j + 2]);
+            }
+        }
+        return dp[len - 1][k * 2];
+    }
+}
+
+
+
+class Solution {
+    public int maxProfit(int k, int[] prices) {
+        int len = prices.length;
+        if (prices == null || len == 0) {
+            return 0;
+        }
+        int[][] dp = new int[len][k * 2 + 1];
+        for (int i = 1; i < k * 2 + 1; i += 2) {
+            dp[0][i] = -prices[0];
+        }
+        for (int i = 1; i < len; i++) {
+            for (int j = 1; j < k * 2 + 1; j++) {
+                if (j == 1) {
+                    dp[i][j] = Math.max(dp[i - 1][j],-prices[i]);
+                }else if (j % 2 == 0) {
+                    dp[i][j] = Math.max(dp[i - 1][j],dp[i - 1][j - 1] + prices[i]);
+                }else {
+                    dp[i][j] = Math.max(dp[i - 1][j],dp[i - 1][j - 1] - prices[i]);
+                }
+            }
+        }
+        return dp[len - 1][k * 2];
+    }
+}
